@@ -1,0 +1,97 @@
+USUARIOS
+crear usuario: 
+    (root) su -, contraseña
+    useradd nombreusuario, psswd contraseña (escribir contraseña)8 carac min
+para comprobar usuario: 
+    cd /home, ls, aparecen usuarios
+borrar usuario: 
+    poner root, userdel -r nombreusuario
+crear grupos: 
+    root, groupadd nombregrupo
+agregar suauarios a grupo: gpasswd -a nombreusuario nombregrupo
+para verificar a que grupos pertenece un usuario: groups nombreusuario
+cambiar nombre al grupo:
+    groupmod nombregrupo -n nuevonombre
+eliminar grupo: 
+    groupdel nombregrupo
+salir de root: 
+    exit (nunca dejar sesion root abierta)
+    sudo (o usar comando)
+
+DIRECTORIOS
+en sis linux existen 2 dir principales, usuario: cd ~ y sistema: cd /
+creacion de dir: mkdir dirname (cd/destino despues mkdir)
+sus nombres deben ser: "EJEMPLO 1" O EJEMPLO_1
+para acceder a ellos: cd dirname
+para crear archivos: touch archname (archivo_2.txt)
+para acceder a archivos: nano archname
+para eliminar arch o directorios: rm -R archname dirname
+para mover dir o archi: cd origen dir o archi
+    mv archiname destino, cd para ir a destino
+    ls para verificar que esta en destino
+si hay varios niveles se hace asi: cd nivel_1/nivel_2/nivel_3
+                                   mv archiname ../../nivel_1
+                                   cd ../../nivel_1
+para copiar archi o dir: cp archiname /nivel_2
+
+GESTION DE PERMISOS: chmod para asignar permisos
+"a" aplica a todos user and groups
+"u" aplica a user que usa el comando, 
+"g" aplica al grupo del usuario
+"o" aplica a los demas users
+"+" asigna permiso, 
+"-" quita permiso
+"r" permiso lectura, "w" permiso escritura, "x" permiso ejecucion
+sintaxis: "chmod <a, u, g, o><<+, -><rwx><dirname>"
+ejemplo: cd /home, ls(para ver usuarios), ls -l(para ver permisos de los dir) 
+    # chmod g+rwx dirname
+quitar permisos: cd/ home, ls, ls -l, chmod g-rwx, nombre dir
+asignar un solo permiso(lectura):
+    chmod g+r-w-x nombre dir
+
+GESTION DE ACCESO DE RED: hosts.allow. (es un archivo de lista negra)
+para vetar usuarios: 
+    primero se identifica la ip que queremos bloquear 
+    siendo root usamos el comando # who (para ver las ips del servidor y ptos de acceso)
+    despues: pkill-9-t pts/3 (donde 3 seria el punto de acceso que queremos vetar)
+    (ahora vamos al dir) cd /etc
+    (accedemos al archivo host.allow) nano host.allow
+    y en el archivo escribimos: ALL:ipIntrusa:DENY, ALL:ALL:ALLOW 
+    guardamos (crtl +o) y salimos (ctrl +x)
+eso ultimo es conocido como lista negra, ahora veamos como crear una lista blanca
+cd /etc, nano host.allow
+y en el archivo escribimos: ALL:IpPermitida:ALLOW, ALL:ALL:DENY
+despues guardamos y salimos
+
+GESTION DE PUERTOS: en linux existen 9 zonas que son configuraciones para aceptar o rechazar
+conexiones de red
+    BLOCK: rechaza cualquier conexcon emitiendo un mesaje de aviso
+    DROP: " " " sin mensaje de aviso
+    DMZ: zona desmilitarizada, solo acepta conexiones autorizadas por el admin
+    EXTERNAL: acceden conexiones con enmascaramiento habilitado
+    INTERNAL: permite conxciones de la red local
+    HOME: permite conexiones del hogar
+    WORK: permite conexiones del trabajo
+    PUBLIC: las redes publicas pueden acceder aunque las conexiones no sean de confianza
+    TRUSTED: toda conexion es aceptada
+al activar el firewall la zona predeterminada es la publica
+para cambiarla: firewall-cmd --set-default-zone=zonename(trusted)
+los puertos pueden ser habilitados o desabilitados en cada una de las zonas
+en linux hay 65535 puertos disponibles configurados de la sig manera:
+    puertos bien conocidos: van del 0 al 1024, usan protocolos https, ftp, ssh, telnet, entre otros
+    puertos registrados: 1025-49151 son de aplicacion libre
+    puertos privados: 49152-65535 son puertos de uso temporal utilizados para conectar una maquina con el servidor
+
+habilitar y desabilitar puertos: para hacerlo se debe conocer el protocoo de transferencia de cada puerto
+Existen 2 protocolos de tranferencia de datos:
+    TCP: es el mas usado
+    UDP: 
+
+para habilitar un puerto: firewall-cmd --zone=public(zone) --add-port=30000(no de puerto)/tcp(protocolo) --permanent
+para verlos: firewall-cmd --permanent --list-all-zone
+para inhabilitar: firewall-cmd --zone=public --remove-port=3000/tcp--permanent
+para ver que puertos estan siendo usados: netstat -tuna
+los puertos se ven despues de las ip mostradas: 0 192.168.122.1:53 (53 es el puerto)
+
+
+

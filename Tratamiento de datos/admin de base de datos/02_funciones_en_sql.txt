@@ -1,0 +1,65 @@
+En sql existen 3 tipos de funciones:
+    1.- Funciones escalares: devuelven un unico valor de cualquier tipo de datos
+        su sintaxis es: 
+        CREATE FUNCTION nombre de la funcion(nombre parametro, tipo de dato y longitud)
+        *si hay mas de un parametro se separa por coma
+        RETURNS tipo de dato
+        AS
+        BEGIN
+        *entre begin y end va el codigo de la funcion
+        END
+
+        **EJEMPLO
+        CREATE FUNCTION CalculoIVA (@Price money) *paa identidicar parametros primero pon un @
+        RETURNS money 
+        BEGIN
+            DECLARE @IVA money *declaramos la variable con su tipo de dato
+            SET @IVA = @Price * 1.16 *para modificar o asignar varoles se usa SET
+            RETURN @IVA
+        END
+
+*Para usar una funcion tenemos que hacer una consulta, y siemrpe deben ejecutarse sobre una sentencia
+por ejemplo select, no se pueden ejecutar solas
+SELECT ProductID, ProductName, UnitPrice dbo CalculoIVA(UnitPrice) AS IVA FROM Products
+
+    2.- Funciones en linea: Regresan un conjunto de datos correspondiente a una sentencia select
+        por lo tanto el resultado es una tabla
+        para crearla:
+        CREATE FUNCTION nombre de la funcion(parámetro de entrada) RETURNS tipo de dato
+        RETURN() *dentro se escribe el codigo que sera la consulta
+
+        **EJEMPLO
+        CREATE FUNCTION CountryCustomers (@Country nvachar (15)) RETURNS table
+        RETURN (SELECT CustomerID, CompanyName, Country FROM Customers
+        WHERE Country = @Country)
+        *como el retorno de la instruccion es de un dato tipo tabla
+        lo tenemos que llamar con las instruccion select:
+        SELECT * FROM dbo CountryCustomers ('Mexico') *con el parametro de entrada
+
+        *debemos tener en cuenta que no podemos usar sentencias como orden by en estas funciones
+
+    3.- funciones en linea de multiples sentencias: son similares a las anteriores
+    excepto que el resultado esta compuesto por la ejecucion de varios select y por lo general se usan cuando se requiere de mayor logica de proceso
+    CREATE FUNCTION nombre de la funcion(parámetro de entrada) 
+    RETURNS Nombre variable tipo tabla (aqui se definen las columnas del nombre de la tabla que queremos regresar)
+    BEGIN
+    *codigo de la funcion
+    END
+
+    **EJEMPLO
+    CREATE FUNCTION CountryCustomers2 (@Country nvachar (15))
+    RETURNS @TableCountry table (CustomerID nachar(5),
+                                Company Name nvachar (40),
+                                ContactName nvachar (30),
+                                Country nvachar (15))
+    BEGIN
+        INSERT INTO @TableCountry
+        SELECT CostumerID, CompanyName, ContactName, Country FROM Customers
+        *los campos deben estar en el mismo orden de la variable tabla
+        WHERE Country = @Country
+        RETURN
+    END
+
+*Estas deden llamarse de la misma manera que consultamos los valores de una tabla
+por lo general se usa select para conocer su contenido
+SELECT * FROM dbo CountryCustomers2 ('Argentina')

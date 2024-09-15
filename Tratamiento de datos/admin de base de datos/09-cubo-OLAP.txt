@@ -1,0 +1,28 @@
+es dificil generar reportes de datos con tanta informacion en las db
+para esto nos ayudan los cubos OLAP: Porcesamiento analitico online
+sirven para hacer mas eficiente la base de datos ya que preprocesa la info y te permite tener acceso instantaneo a esta
+trabaja en 3 dimensiones
+jerarquias en dimensiones: algo tipo pais, estado, municipio
+    hay categorias padre e hijo
+para desplazarte entre jerarquias y navegar entre la info son necesarias las operaciones
+Drill Down y Drill Up
+Drill Up: sirve para compactar los datos por ejemplo de meses se compacta a años
+Drill Down: sirve para ver los datos con mas detalle, lo contrario al anterior
+Estos se crean con la herramienta bussisnes intelligence
+primero se debe establecer el origen de los datos, despues las tablas del cubo, luego se crea el cubo
+despues se le añaden los atributos y dimensiones, luego las jerarquias
+
+Una vez creado el cubo podemos acceder a el desde una hoja de calculo de excel
+ACCEDER A DATOS DESDE EXCEL
+abrir hoja de calculo vacia
+datos- de otras fuentes - desde analisis services
+nombre de servidor = . 
+seleccionar db y el cubo en que trbajamos
+selecciona informa grafico y tabla dinamica
+
+Con esto podremos disponer de la informacion del cubo al instantane
+con ello podremos hacer graficos y tablas dinamicas para presentar la info que facilite la toma de desiciones
+
+
+
+

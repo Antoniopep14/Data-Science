@@ -1,0 +1,69 @@
+para instalar un servidor de impresion en linux, se necesita:
+    servidor centos, equipo de impresion con drivers compatibles linux 
+    editor nano(programa), ip del servidor, explorador de internet
+para hacerlo se debe: iniciar SO, abrir consola en modo root, despues ejecutamos el codigo para instalar cups
+    yum -y install cups
+    despues instalamos un interprete de ghost scrip con:
+    yum install ghostscript.x86_64 hplip-common.x86_64_
+    luego una biblioteca mas completa de controladores de impresoras
+    yum -y install foomatic-db-ppds gutenprint-cups printer-filters
+    despues instalamos los controladores de la impresora atraves de package kit
+    yum -y install system-config-printer cups-pk-helper
+    iniciamos el servicio de cups:
+    systemctl start cups
+
+para configurar la imspresora haremos uso de cups en una interfaz cargada en una pagina web
+para hacerlo debemos ejecutamos:
+    esto abrira el archivo de configuracion:
+    nano /etc/cups/cupsd.conf
+    agregamos la sig linea al inicio del archivo
+    DefaultEncryption Never
+    agregamos a #Only listen for connections from the local machine:
+    listen ip:puerto de la impresora(631)
+    agregamos la subred local donde esta el servidor en #Restric access to the server...:
+    allow red local (192.123.0.0/24)
+    guardamos cambios y reiniciamos servidor
+
+para acceder a la interfaz, abrimos el explorador y tecleamos:
+    locahost:631
+INSTALACION DE CONTROLADORES DE IMPRESORAS EN SERVIDOR
+para instalar una impresora en red necesitamos:
+    SO con cups, conexion de red local, impresora con conexion de red, controlador para la impresora
+
+Para instalar y añadir la impresora:
+    primero debemos conectar la impresora a la red, verificando que el protocolo tcp/ip de la impresora este habilitado
+    abrimos explorador y escribimos: localhost:631
+    entramos a la pestaña de administracion y seleccionamos añadir impresora
+    ingresamos con root o admin, y seleccionamos la impresora que añadimos anteriormente
+
+Para instalar el controlador:
+    a partir del ultimo paso de arriba damos sig, ingresamos ubicacion fisica de la impresora
+    habilitamos opcion de compartir impresora para que sea visible en la red y damos sig
+    seleccionamos el controlador del modelo y marca de la impresora y damos sig
+    sino aparece los descargamos de la pag oficial y lo instalamos en el SO para que aparezca en la lista
+    verificamos si no necesitamos opciones adicionales de configuracion
+    y al final verificamos que la impresora aparezca en lista e imprimimos una pag de prueba
+
+para una impresora que no tenga conexion a red se hacen los mismos pasos conectada via usb
+
+INSTALACION DEL SERVICIO DE IMPRESIONES PARA UN CLIENTE
+abrimos cups, en la pestaña de impresoras seleccionamos la deseada
+copiamos la direccion url, y abrimos el panel de control de la pc 
+seleccionamos dispositivos e impresoras, seleccionamosagregar una impresora
+seleccionamos la impresora deseada no esta en la lista
+escogemos selecciona una impresora compartida por nombre y pegamos la url copiada
+seleccionamos la marca y modelo de la impresora
+agregamos el driver o descargamos en caso de no aparecer
+ejecutamos prueba con un ping a la impresora
+
+
+    
+
+
+
+    
+
+
+
+
+

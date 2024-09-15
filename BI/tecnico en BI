@@ -1,0 +1,774 @@
+Lenguaje de Definición de Datos (LDD)
+CREATE DATABASE Esta instrucción es empleada para crear una base de datos no existente y 
+se usa de la siguiente forma:
+    CREATE DATABASE “nombre deseado”
+
+DROP DATABASE Esta instrucción es empleada para eliminar una base de datos existente y 
+se usa de la siguiente forma:
+    DROP DATABASE “nombre deseado”
+
+CREATE TABLE Esta instrucción es empleada para crear una tabla de datos no existente, 
+en esta sentencia también se definen los campos, tipo de dato y longitud:
+    CREATE TABLE “nombre deseado” (campo1 INT(10), campo2 
+    VARCHAR(50), campo3 DATE)
+
+DROP TABLE Esta instrucción es empleada para eliminar una tabla existente y se usa de 
+la siguiente forma:
+    
+    DROP TABLE “nombre deseado”
+ALTER TABLE Esta instrucción es empleada para modificar una tabla existente , ya sea 
+agregando, eliminando o modificando campos. Se usa de la siguiente 
+forma:
+    ALTER TABLE “nombre deseado” ADD (“campo” INT(10))
+    ALTER TABLE “nombre deseado” DROP “campo”
+    ALTER TABLE “nombre deseado” CHANGE “campo” “nuevo campo” INT(10)
+
+
+Lenguaje de Manipulación de Datos (LMD)
+INSERT INTO Esta instrucción es empleada para crear un registro en una tabla y se usa 
+de la siguiente forma:
+    INSERT INTO “nombre tabla” VALUES (dato1,dato2,…) 
+
+DELETE FROM Esta instrucción es empleada para eliminar un registro existente en una 
+tabla y se usa de la siguiente forma:
+    DELETE FROM “nombre tabla” WHERE “sentencia relacional” 
+
+UPDATE Esta instrucción es empleada para modificar un registro en cualquier 
+campo:
+    UPDATE “nombre tabla” SET campo= “dato” WHERE “sentencia relacional”
+
+TRUNCATE Esta instrucción es empleada para borrar todos los registros de una tabla y 
+se usa de la siguiente forma:
+    TRUNCATE “nombre tabla
+
+sistema gestor pide dominar los sig elementos:
+    conexion al sistema de DB 
+    creacion de una DB 
+    creacion de tablas y atributos
+    relaciones entre tablas 
+    modificacion de llaves primarias
+
+logear una DB en servidor SQl
+    Abrir programa
+    new connection
+    seleccionar el sql server en el que queremos trabajar
+    seleccionar modo de autenticacion
+
+crear DB nueva:
+    create new DB 
+    asignar nombre
+    seleccionar NT Authority/system
+    guardar
+
+crear tablas:
+    en DB explerer despliega la instancia de DB creada
+    selecciona new TABLE
+    asignar nombre
+
+agregar atributo de llave primaria:
+    localizar la seccion de atributos en la pestaña main
+    clic en el icono de pa ventana de main
+    asignar nombre, tipo de variable y primary
+    si necesitas que la variable se creciente selecciona identity
+    guardar, para atributos normales solo no se selecciona PRIMARY
+
+relacion entre tablas:
+    database en barra de herramientas
+    DB diagram
+    arrastrar la DB hacia el area de trabajo
+    new relation
+    clic sostenido de llave foranea a PK
+    seleccinoa las llaves relacionadas en la ventana emergente
+    update DB 
+
+reasisgnar una PK:
+    doble clic sobre la tabla a modificar
+    pestaña constraints
+    en PK clic derecho y delete constraint
+    asignar la PK con los cambios deseados
+
+FUNCIONES ESCALARES:
+    devuelven un unico valor de cualquier tipo de datos y se crean asi:
+        CREATE FUNCTION nombrefuncion(parametro, tipo de dato, long)
+            RETURN tipo de dato
+            AS
+            BEGIN
+                CODIGO DE LA FUNCION
+            END
+
+    se ejecuta la funcion en el codigo desde create hasta end para crear
+    la funcion en nuestro sistema gestor y para usarlo solo
+    debemos realizar una nueva consulta, las funciones siempre
+    deben ejecutarse dentro de una sentencia
+
+    por ejemplo, funcion para calcular el IVA: 
+    donde price(identificado por el @) es el parametro money el tipo de dato
+        CREATE FUNCTION CalculoIVA (@Price money)RETURNS money
+        AS
+        BEGIN
+            DECLARE @IVA money *declaramos variable con @ y su tipo de dato
+            para modificar o agregar valores a la variable usamos SET
+            SET @IVA = @PRICE * 1.16
+            RETURN @IVA  
+        END
+    
+    ejemplo de consulta:
+        SELECT ProductID, ProductName, UnitPrice dbo CalculoIVA(UnitPrice) AS IVA FROM Products
+
+Funciones de múltiples sentencias en SQL:
+    son funciones más avanzadas como funciones en linea o funciones
+    en linea de multiples sentencias
+
+    funciones en linea: aquellas que regresan un conjunto de resultados
+        correspondientes a una sentencia select, por lo tanto el 
+        resultado es una tabla, para crearla es igual que una funcion escalar
+        pero en lugar de begin- end lleva return(junto al codigo que sera una consulta)
+        CREATE FUNCTION nombredefuncion(parametro de entrada)RETURNS tipodedato
+        RETURN(codigo de la funcion)
+
+        por ejemplo, una funcion que te de todos los clientes de una misma
+        nacionalidad:
+            CREATE FUNCTION CountryCustomers (@Country nvachar (15)) RETURNS TABLE
+            RETURN (SELECT CustomerID, COmpanyName, Country FROM Customers
+                    WHERE Country=@Coutry)
+            
+        selecciona el codigo y ejecutalo
+        como el resultado de la funcion es de tipo tabla, este se llama
+            con la funcion SELECT
+            SELECT * FROM dbo CountryCustomers('México')
+        debemos tomar en cuenta que no podemos usar sentencias como
+            order by en una funcion en linea
+
+    funciones en linea de multiples sentencias:
+        es similar a la anterior, excepto que la ejecucion esta
+            compuesta por varios SELECT, por lo general se utilizan
+            cuando se requiere de mayor logica de proceso
+        CREATE FUNCTION nombredefuncion(parametro de entrada)
+        RETURNS nombrevariable table(definimos la columnas de la estructura de la tabla)
+        AS
+        BEGIN
+        END
+
+        por ejemplo, diseñaremos una funcion que al ejecutarse
+            nos arroje la informacion de cada cliente por pais
+            CREATE FUNCTION CountryCustomers2 (@Country nvachar (15))
+            RETURNS @TableCuntry table(CustomerID nachar (5),
+                                        CompanyName nvachar (40),
+                                        ContactName nvachar (30),
+                                        Country nvachar (15))
+            AS
+            BEGIN
+                INSERT INTO @tablecountry
+                SELECT CustomerID, CompanyName, ContactName, Country FROM Customers
+                *los campos tienen que estar en el mismo orden de la variable tabla
+                WHERE Country =@Country
+                RETURN
+            END
+
+        estas funciones se mandan a llamr de la misma manera en la que
+            se consultan los valores de una tabla, por lo general se 
+            utiliza SELECT para conocer su contenido
+        SELECT * FROM dbo CountryCustomers2('Argentina')
+
+TRIGGERS:
+    disparadores de eventos que activan procesos automaticos en la DB 
+        al utilizar una funcion DML especifica como INSERT,
+        DELETE o UPDATE
+    cada trigger esta anclado solo a una tabla
+    para crearlo:
+        CREATE TRIGGER  nombre del TRIGGER
+        ON              nombre de la tabla
+        ALTER o FOR     DML(INSERT, DELETE, UPDATE)
+        AS
+        BEGIN
+        END
+
+    la diferencia entre ALTER y FOR es su tiempo de activacion
+        for se activa primero el trigger y despues la intruccion
+            DML
+        after Primero se activa la instruccion DML y despues el trigger 
+
+    por ejemplo restaremos la cantidad de productos de una tabla
+        order detail cada que se le hace una insercion
+         de otra llamada products
+    CREATE TRIGGER      StockUpdate
+    ON                  [OrderDetails]
+    FOR INSERT
+    AS
+    BEGIN
+        DECLARE @Cantida smallint, @ProductoID int, @Stock smallint
+        *deben ser del mismo tipo de dato de las columnas que vamos a usar
+            para rellenarla
+        *obtenmos los datos que acabamos de insertar con la siguiente consulta
+        SELECT @Cantidad=Quantity, @ProductoID=ProductID FROM inserted
+        *obtemos los datos del almacen que se encuentran en la tabla productos
+        SELECT @Stock=UnitInStock FROM Products WHERE ProductID=@ProductoID
+        *realizamos un update con la operacion necesaria para tener en nuevo stock
+        UPDATE Products SET UnitInStock=@Stock - @Cantidad
+    END
+
+    se ejecuta para guardarlo en la db, en caso de querer modificar
+        el TRIGGER en lugar de CREATE empezamos con ALTER
+    para usarlo solo deberiamos de hacer un insert a la tabla [OrderDetails]
+        INSERT TO [OrderDetails] (OrderID, ProductID, Quantity) VALUES(102448,14,10)
+    *no olvidar verificar existencia y que no exceda la cantidad del almacen
+    ya que el campo no acepta numero negativos
+
+PROCEDIMIENTOS ALMACENADOS EN SQL:
+    son un conjunto de instruccionies que son ejecutadas cuando lo decidas
+    pueden aceptar parametros de entrada y generar o no resultados
+    dentro de ellos puedes ejecutar otros procedimientos almacenados
+    por lo general regresan un valor de estado para comprobar la operacion
+    estos procedimientos llaman a la DB con el codigo y temrinan la llamada
+        cuando terminan el procedimiento
+    tambien varios usuarios o clientes pueden ejecutar procesos de tareas
+        especificas sin meterse con el codigo sql
+    para crear un procedimientos almacenado:
+        CREATE PROCEDURE nombre procedimiento
+        AS
+            codigo a ejecutar
+        GO
+
+    para ejecutarlo:
+        EXECUTE nombre de procedimiento
+    
+    por ejemplo, rcearemos un procedimiento almacenado que solo
+        traiga a los clientes mexicanos:
+        CREATE PROCEDURE CustomerCountry 
+        AS
+            SELECT*FROM Customers
+            WHERE CustomerCountry = 'México'
+        GO
+    ejecutamos para guardar y lo llamamos con:
+        EXECUTE CustomerCountry
+    para modificarlo solo ponemos ALTER en lugar de CREATE
+
+PROCEDIMIENTOS ALMACENADOS CONTRA FUNCIONES:
+    las funciones son llamadeas dentro de sentencias
+    los procedimientos son llamados cuando queiras por medio de EXECUTE
+    con los procedimientos puedes restringir nivel de usuario 
+        a un nivel mas especifico
+    a los procedimientos se les pueden dar tambien parametros de entrada
+        para que arrogen algun resultado:
+        abajo ponemos el nombre de procedimiento, con 
+            el del o los parametros de entrada junto con su tipo de dato y long
+        CREATE PROCEDURE InsertUpdate_Customers @CustomerID nchar (5), @CustomerID nchar (5),
+                                                @ReturnID nchar (5) OUTPUT
+        AS
+        BEGIN
+            codigo a ejecutar
+        END
+    por ejemplo, queremos un procedimiento que arroje un nuevo cliente a la 
+        tabla de customers, en el caso de que ya exista actualizala,
+        el procedimiento enviaa un mensaje si se inserto el registro
+        o si se actualizo para regresar una variable del id insertado 
+
+        CREATE PROCEDURE InsertUpdate_Customers @CustomerID nchar (5), @CustomerID nchar (5),
+                                                @CompanyName nvachar (40),
+                                                @ReturnID nchar (5) OUTPUT
+        AS
+        BEGIN
+            INSERT UNTO Customers (CUstomerID, CompanyName) Values (CustomerID, @CompanyName
+            IF (@@ERROR <> 0)
+                BEGIN
+                    UPDATE Customers
+                    SET Customers.CustomerID = @CustomerID
+                    Customers. CompanyName = @CompanyName
+                    WHERE Customers. CustomerID = @CustomerID
+                    Print ('Se realizo un UPDATE')
+                END
+                ELSE
+                BEGIN
+                    PRINT ('Se realizo un INSERT')
+                END
+                SELECT @ReturnID= CustomerID FROM Customers WHERE Customers. CustomerID = @CustoemrID
+        END
+
+    para ejecutar un procedimiento almacenado primero se debe 
+        declarar una variable que obtenga el valor de retorno 
+        del procedimiento por lo tanto debe tener el mismo topo
+        de datos y longitud
+        DECLARE @back nchar (5)
+        despues escribimos execute, el nombre del procedimiento
+            y los valores a insertar a la tabla + output
+        EXECUTE insertUpdate_Customers 'ABABA', 'Puzzle', @back OUTPUT
+        al ejecutarlo debe aparecer alguno de los mensajes declarados
+        para saber le valor de la variable de retorno:
+            SELECT @back
+
+CONSULTA DISTINCT: elimina los registros duplicados de las columnas
+        abarcadas en select
+    SELECT DISTINCT [Order Details], ProductID, Products, Product Name
+    FROM [Order Details]
+    podemos convinar la sintaxis de busqueda en diferentes tablas con:
+        INNER JOIN Orders ON [Order Details], OrderID = Orders, OrderID
+        INNER JOIN Products ON [Order Details], ProductID = Products, ProductID
+    ejemplo:
+        SELECT DISTINCT [Order Details], ProductID, Products, Product Name
+        FROM [Order Details]
+        INNER JOIN Orders ON [Order Details], OrderID = Orders, OrderID
+        INNER JOIN Products ON [Order Details], ProductID = Products, ProductID
+        WHERE OrderDate >= '04-07-2006'
+        AND OrderDate <= '05-07-2006'
+        ORDER BY [Order Details], ProductID
+
+CONSULTAS EN SQL- SUBCONSULTAS: usadas en la consulta WHERE
+    SELECT DISTINCT Campo1, Campo2 FROM TablaA
+    INNER JOIN TablaB ON LlavePrimaria = LlaveForanea
+    WHERE 'Valor' IN (SELECT Country FROM Suppliers
+                      WHERE Products.SupplierID = Suppliers.SupplierID)
+    por ejemplo realizaremos una consulta cuyos nombres empiezen con la letra L
+    de proveedores estadounidenses
+        SELECT DISTINCT [Order Details]. ProductID, Products.ProductsName FROM [OrderDetails]
+        INNER JOIN Products ON [Order Details, ProductID = Products.ProductID]
+        WHERE 'USA' IN (SELECT Country FROM Suppliers
+                        WHERE Products.SupplierID = Suppliers.SupplierID FROM Suppliers)
+        AND ProductName LIKE 'L%'
+
+CONSULTAS EN SQL INTO: es una instruccion complementaria de SELECT
+        crea una tabla en la DB y crea una nueva tabla con los requieistos
+        previamente dados, su arquitectura tendra los campos del 
+        SELECT pero no estara referenciada a ninguna ptra tabla
+        si lo intentamos ejecutar 2 veces obtendremos error por lo
+        que tendremos que eliminar la 1er tabla creada con la consulta
+    SELECT Campo1, Campo2, Campo3
+        INTO NuevaTabla
+        FROM dbo TablaDeDatos
+    si requieres obtener informacion de mas de 1 tabla usa INNER JOIN
+    para verificar que una tabla no exista en la DB usa OBJECT_ID
+    por ejemplo crearemos una tabla que contenga los campos customer ID y CompanyName
+        IF OBJECT_ID('TablaQueCrearemos')
+        si obtenemos is not null quiere decir que existe, entonces
+        BEGIN
+            DROP TABLE TablaQueCrearemos
+        END
+        despues de verificar, la creamos
+        SELECT CustomerID, CompanyName
+        INTO TablaQueCrearemos
+        FROM Customers
+        para ver sus datos usamos
+        SELECT * FROM TablaQueCrearemos
+
+CONSULTAS EN SQL GROUP BY: es complementaria de SELECT y sirve
+            para agrupar un conjunto de registros en una consulta
+        SELECT Campo1, Campo2 FROM tabla1
+        opcional*
+        INNER JOIN tabla2 ON tabla1.Campo1 = tabla4.campo6
+        GROUP BY campo1 ORDER BY campo3
+    por ejemplo, queremos saber el total de venta por categoria 
+        de producto y region realizadas en la tienda hasta la fecha
+        SELECT RegionDescription, CategoryName, SUM ([Order Details].Unit Price * [Order Details].Quantity) AS total
+        FROM Region, Territories, EmployeeTerritories, Orders, [Order Details], Products, Categories
+        WHERE Region.RegionID = Territories.RegionID
+        AND Territories.TerritoryID = EmployeeTerritories.TerritoryID
+        AND EmployeeTerritories.EmployeeID = Employees.EmployeeID
+        AND Employees.EmployeeID = Orders.EmployeeID
+        AND Order.OrderID = [Order Details].OrderID
+        AND [Order Details].ProductID = Products.ProductID
+        AND Products.CategoryID = Categories.CategoryID
+        GROUP BY RegionDescription, CategoryName ORDER BY RegionDescription
+        esto nos da una tabla con id, regiondescription, categoryname, total
+
+La instrucción complementaria ORDER BY es altamente costosa
+en procesamiento, por lo que se recomienda no utilizarla dentro
+de la consulta. Es mejor práctica ordenar la tabla después de
+haber accedido a la base de datos
+
+Utiliza DISTINCT sólo cuando sea necesario,
+ya que la consulta se vuelve
+muy costosa en procesamiento,
+al comparar todos los registros
+entre sí para eliminar duplicados.
+
+Usa alias en consultas,
+ya que el código puede
+ser muy complejo;
+esto se logra escribiendo
+AS “NuevoNombre”
+después del nombre de la tabla.
+
+Ocupa “SELECT * FROM
+(Nombre de la tabla)” cuando
+sea estrictamente necesario.
+La mejor práctica es traer sólo 
+las columnas que ocuparás.
+
+Evita realizar subconsultas,
+pues acapara el procesamiento
+del servidor.
+Si es necesario utilizarla,
+evita el NOT IN; mejor
+cambia la sintaxis para
+que sólo uses IN
+
+La instrucción complementaria
+LIKE también se debe evitar,
+ya que ésta compara los
+caracteres seleccionados en
+toda la tabla;en consecuencia la
+búsqueda puede tardar tiempo
+
+ALMACEN DE DATOS: O datawarehouse DB orientada al analisis de informacion
+            este almacen se olvida de las transacciones o procedimientos
+                almacenados en la DB y solo se enfoca en extraer y organizar
+                informacion importante almacenada en otras DB
+        debe cumplir con las sig caracteristicas:
+            orientado a temas: datos relacionados respecto a un tema
+            variante en el tiempo: los cambios deben quedar registrados 
+                para evitar perdidas de informacion
+            no volatil: la info no se modifica ni se elimina, solo es 
+                de lectura
+    
+    ETL:
+        extraccion: obtener info de datos almacenados
+        transformacino: adoptarlos a los esquemas de datawarehouse
+        carga: depositar los datos en el almacen
+
+    Data marts: Son bases de datos departamentales que se alimentan
+            del data warehouse con el fin de evitar una busqueda exaustiva
+            por parte del sistema y recibir info mas rapido
+        para su analisis se contemplan estructuras multidimensionales
+            de estructura de datos como cubos relacionales
+
+    esquemas de almacenes tipo estrella:
+        tabla de hechos o central rodeada de dimensiones
+        solo existe una tabla por dimiension
+
+    esquemas de almacenes tipo snowflake y constelacion:
+        snowflake o copo de nieve: mas complejo que el de estrella
+            diseñado para el mantenimiento de dimensiones
+            parecido a un modelo relacional ya que cumple con la tercera forma normal
+            ahorra espacio en memoria 
+            es de bajo rendimiento en consultas
+
+    esquema de constelacion: mas complejo ya que existe mas de una tabla de hecho
+        tiene el fin de tener diferentes aspectos del negocio registrados
+        la ventaja de este esquema es su flexibilidad para estructurar los datos
+            pero al generarla se sacrifica su facilidad
+        pueden llevar a ser dificiles de mantener por el crecimineto de los datos
+        tiene las misma velocidad de busqueda que el de estrella
+            siempre y cuando se genere una tabla por dimension
+
+ETL:
+    extraccion:
+    para la creacion de un almacen de datos usaremos BI 
+    primero debemos generar un nuevo producto de serv de integracion
+    se le asgina nombre y se guarda en una carpeta definida para ese proposito
+    creamos un nuevo origen de datos en la carpeta de origenes de datos
+        y eligimos la DB para extraer info
+    generamos nueva vista en la carpeta de origenes de datos
+        y seleccionamos el nuevo origen creado y agregando
+        todas las vistas de tablas
+    las nombramos y aparecera el diagrama relacional
+    renombramos el archivo en la carpeta de paquetes a uno de 
+        tu agrado, das click derecho en la parte inferior de 
+        la carpeta y eligimos nueva conexcion OLE DB
+    despues escribimos un punto para seleccionar el local host
+    elegimos la DB del almacen de datos-aceptar
+    ya teniendo la conexion de datos damos clic derecho en ella
+    selecionamos nueva conexion desde origen de datos y elegimos
+        la DB de la tienda 
+    
+    transformacion:
+    seleccionamos y arrastramos ejecutar SQl
+    clic derecho en el recuadro para editar la tarea
+    elegir la conexion de DW cuando aparezca el SQl statement
+    escribimos el codgio sql para limpiar las tablas del DW
+    usa los comandos DELETE para dimensiones y Truncate para 
+        las tablas de estos
+    arrasttra una tarea de flujo de datos y editala
+    despues arrastra origen de OLE DB, copiar columnas y
+        destino de OLE DB 
+    edita origen OLE DB y elige la DB de la tienda
+    en modo de acceso elige comandos SQl
+    genera una consulta y en el icono de tabla elige las tablas
+        que utilizaste para generar la dimension en el DW
+    selecciona los campos que conforman a la dimension y aceptar
+    edita destino OLE DB y elige la DB del DW
+    en modo de acceso de acceso de datos, tabla o vista, elige
+        la tabla del DW a poblar
+    verifica esto en asignaciones
+    une los rectangulos de origen, copia columnas y destino con 
+        fechas como lo indica el software BI 
+    ejecuta el proceso y al hacerlo se pondra de otro color
+    en la pestaña del flujo de control une los recuadros con flechas
+        y haz clic en ejecutar
+    realiza este procedimiento para cada dimension del esquema 
+        del almacen de datos
+    
+en la dimension del tiempo tendras que realizar otro procedimiento
+        para que la tabla ofresca la info que deseas analizar en tiempo
+        ya sea por dia, semana, mes, bimestre, cuatrimestre o años
+    para ello edita la tarea para poblar la dimension del tiempo 
+        y asi modificar el origen OLE DB
+    selecciona la DB de la tienda
+    despues en modo de acceso elegir comando SQL
+    generar consulta y en el icono de tabla elige las tablas que 
+        se usaron para generar la dimension en el DW 
+    despues selecciona los campos que conforman la dimension
+    escribe el codigo SQl de la consulta a la tabla 
+    con la informacion de la fecha debes generar los campos de 
+        la tabla destino, campos por dia, semana, año, Etc. pueden
+            ser deducidos del mismo campo de fecha
+        edita el bloque de destino OLE DB y selecciona la DB del DW
+        en asignaciones elige los campos que no hayan sido asignados
+            a la tabla destino y da clic en aceptar
+        se tiene que hacer un procedimiento muy parecido con una
+            dimension de ubicaion geologica, si es que existe esta
+            dimesion en el diseño del almacen de datos
+
+    carga de datos en DW:
+        es el fin del ciclo de ETL
+        arrastrra una nueva tarea ejecutar SQL hacia la pestaña de flujo
+            de control, editala y elige una conexion al DW 
+        escribe en sQl Statement el codigo a usar, ya que requieres las
+            tablas de la DB de la tineda
+        genera un insert a la tabla de hechos y llena cada columna con 
+            un select desde la tabla history o con un detalle de la DB 
+            deseada
+        genera un INNER JOIN en este select por cada tabla de dimensiones
+            tambien debes igualar la llave foranea de la tabla 
+            correspodiente al atributo ID de la tabla de dimension
+            que no es su llave primaria
+        acepta y ejecuta el flujo de control
+        si se hizo bine todos los recuadros apareceran en verde 
+
+Borrado de Tablas con Constraints
+    Cuando se agregan datos a una tabla que está relacionada con otra se generan constraints, los
+        cuales protegen la información. En un ETL, al limpiar los datos de todo el Data Warehouse,
+        tendrás que desactivar los constraints ya que no permitirán que uses la instrucción DELETE
+    El código que se debe escribir la primera vez que se limpian tablas es el siguiente:
+        DELETE <Nombre de la Dimensión>;
+        DELETE <Nombre de la Dimensión>;
+        .
+        .
+        .
+        TRUNCATE TABLE <Nombre de la tabla de Hechos>;
+        TRUNCATE TABLE <Nombre de la tabla de Hechos>;
+        .
+        .
+        .
+    El código que se debe escribir para la segunda vez que se limpian tablas y es el que se queda
+        programado en la tarea:
+
+        EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'
+        GO
+        EXEC sp_MSForEachTable 'ALTER TABLE ? DISABLE TRIGGER ALL'
+        GO
+        EXEC sp_MSForEachTable
+            'BEGIN TRY
+                TRUNCATE TABLE ?
+            END TRY
+            BEGIN CATCH
+                DELETE FROM ?
+            END CATCH;'
+        EXEC sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL'
+        GO
+        EXEC sp_MSForEachTable 'ALTER TABLE ? ENABLE TRIGGER ALL'
+        GO
+
+        DBCC CHECKIDENT (<Nombre de la Dimensión>, RESEED,0)
+        DBCC CHECKIDENT (<Nombre de la Dimensión>, RESEED,0)
+
+DATA MART: Un data mart es una versión pequeña de un almacén de 
+    datos, trae información específica de algunos departamen-
+    tos de una organización. Está pensado para satisfacer 
+    necesidades muy específicas de un negocio.
+
+    existen 3 tipos:
+        dependiente:En este tipo de data mart la información es extraída inicialmente 
+            desde una base de datos OLTP, para poblar el datawarehouse.
+        independiente: En este caso la información es extraída directamente de una base 
+            de datos OLTP y llevada al data mart, sin tener que depender de un 
+            datawarehouse. Es conveniente para empresas pequeñas
+        hibrido: En
+         este tipo, la información necesaria para el data mart es tomada 
+            de diferentes fuentes, tanto de las base de datos OLTP como el 
+            data warehouse, incluso de hojas de cálculo
+
+CUBO OLAP: se crearon por la lentitud en las consultas de las DB relacionales
+    prepocesan la informacion y permiten su acceso instantaneo
+    se basa en jerarquias dimensionales padre, hijo, hijo
+    operaciones necesarias:
+        Drill up: sirve para compactar los datos
+            por ejemplo de meses a años
+        Drill down: sirve para ver los datos a mayor detalle
+            lo contrario de arriba
+
+CREACION DE CUBOS OLAP: 
+    primero se configura el origen de los datos
+        creando un nuevo proyecto
+    proyect analisys services
+    se nombra y aceptar
+    para establecer el origen de datos clic derecho en origen
+        de datos - nuevo origen de datos
+    nuevo - seleecionamos la instancia de datos en donde se
+        encuentra el almacen de datos que queremos usar
+    seleccionamos el almacen de datos y aceptar
+    seleccionamos el origen de datos agregado y finalizar
+
+    para elegir la tablas a usar clic derecho en vistas de 
+        origen de datos en el explorador de soluciones - 
+        nueva vista de origen de datos
+    seleccionamos el almacen de datos agregado - siguiente
+    agregamos las tablas y vistas con las que vamos a trabajar
+    sigueinte-finalizar
+
+    ya que tenemos el origen de datos configurado crearemos el 
+        cubo dando clic derecho en ña carpeta del cubo y
+        seleccionamos nuevo cubo - usar tablas existentes-sig
+    seleccionamos las tablas que queremos mejorar como medidas
+        normalmente se amrcan las tablas de hechos -  sig
+    marca las medidas y las dimensiones que vas a utilizar - finalizar
+
+    para seleccionar los atributos de cada seleccion damos 2 clic 
+        sobre la dimension y arrastramos los atributos de las 
+        tablas hasta la seccion de atributos del cubo
+    
+    una vez seleccionados los atributos de la dimension a jerarquizar 
+        creamos la jerarquia, arrastramos el atributo padre de la 
+        jerarquia a la seccion de jerarquia  
+    arrastramos lo hijos respetando la jerarquia y asignamos un nombre
+    y por ultimo procesamos el cubo para llenarlo de datos
+        clic der en el cubo creado - procesar - ejecutar- cerrar
+    
+    para poder acceder a los datos del cubo y manejarlos en una
+        hoja de calculo - abrimos hoja de calculo vacia
+    clic en datos - datos de otras fuentes - desde analisys services
+    . como nombre de servidor 
+    selccionamos la DB y el cubo en el que trabajamos - finalizar
+    seleccionamos inform de grafico y tabla dinamicos - aceptar
+
+ESTRUCTURA DE UN DASHBOARD: paso final para su analisis
+    puede lanzar alertas y ser consultado desde cualquier dispositivo
+    diseño de un dashboard:
+        definir los KPIs
+        enlistarlos por orden de importancia
+        selecciona los 3 o 4 mas importantes, si son mas de 4
+            dividirlos en diferentes grupos para no saturarlo
+        selecciona las graficas que meustren el comportamineto 
+            de los KPIs elegidos
+        acomoda las grfiacs en un solo panel
+        coloca filtros, funciones de ordenamiento y descripciones
+        presentarlo para retroalimentacion
+        diseñarlo en platoforma web de facil acceso
+
+IDENTIFICACION DE RIESGOS: 
+    metodos para identificalos:
+        analisis FODA: identifica
+            fortalezas: factores positivos dentro del proyecto
+            oportunidades: factores positivos fuera del proyecto
+            debilidades: factores negativos dentro del proyecto
+            amenazas: factores negativos fuera del proyecto
+            riesgos: combinacion de fortalezas y amenazas
+            desafios: combinacion de oportunidades y debilidades
+        analisis de procesos: facilita la deteccion de riesgos
+            operativos al probar todos los procesos paso paso
+        Brainstorming: unas muestras significativas de empleados
+            exponen sus ideas o sensaciones de riesgos y si una
+            idea es recurrente significa un riesgo latente
+        entrevistas: se preparan entrevistas con diferentes
+            responsables de la empresa
+        workshops: es una reuniion de grupos de empleados para 
+            identofocar y evaluar el posible impacto de los riesgos
+
+ANALISIS DE IMPACTO: 
+    metodos de analisis de riesgos:
+        cualitativo: la toma de desiciones se basa en tu juicio
+            experiencia o intuicion, se utiliza cuando el riesgo
+            es bajo y no se justifica un analis, aqui entran
+            brainstorming, cuestionarios o entrevistas, reuniones
+            de flujos, juicio de especialistas
+        cuantitativo: permite asignar valores de ocurrencia a los 
+            riesgos identificados mediante un modelo matematico
+            de riesgos(analisis de probabilidad) es mas preciso
+            por lo que se debe realizar un modelo de riesgos
+            para desarrollar este modelo:
+                selecciona las funcoines de probabilidad
+                identifica las variables economicas: impuesto, credito
+                    inversiones, salario, ventas y presupuesto
+            cada riesgo identificado tiene una funcion de probabilidad
+                de ocurrencia y sus tipos son:
+                    triangular: se conocen valores maximos y minimos
+                    uniforme: se conoce el valor maximo de la probabilidad
+                    discreta: se conocen diferentes diferentes valores de 
+                        probabilidad, por ejemplo el valor de una divisa
+            al graficarlas el eje X es el timepo de desarrollo del proyecto
+                y el eje Y es la prbabilidad de que ocurra el riesgo
+
+INDICES: indispesables en DB con grandes volumenes de info:
+    clustered index: o indice agrupado, define el orden fisico
+        de la tabla (orden en el que se acomodan los datos)
+    Unclustered index: genera una tabla separada que contiene
+        los punteros que indican el lugar donde se almacenan los
+        elementos indizados (su limite oscila entre 249-999)
+    para crear un indice agrupado en SQL: 
+        CREATE CLUSTERED INDEX NombreIndice ON 
+        dbp.Nombretabla(NombreIndice);
+    para crear un indice no agrupado:
+        CREATE CLUSTERED INDEX NombreIndice ON 
+        dbp.Nombretabla(NombreIndice);
+
+SCRIPT: Un script es un conjunto de instrucciones que comunican al motor
+    de base de datos qué, cómo y en qué orden debe desempeñarse. 
+
+COMENTARIOS: 
+    Existen dos formas paracrear un comentario en un script de SQL:
+        /*[Contenido de comentario]*/
+        --[Contenido de comentario]
+    para documentar scripts van antes de crear o midificar objetos en una DB
+        --Descripción: Regresa el total de ventas de determinado mes
+    documentacion general de un db: Ya que tienes el script en
+        pantalla, agrega un encabezado que contenga:
+            • Nombre de la base de datos
+            • Versión del motor SQL en el que corre
+            • Nombre del que edita la base de datos
+            • Fecha de edición
+            • Los objetos que se crearon
+            • Los objetos que se modificaron. No es necesario
+                que los registres con sus detalles, pues esto lo
+                tienes que hacer en el script de cada objeto
+
+Procedimiento encargado de desplegar la descripcion de 
+    los objetos de la BD 
+    CREATE PROCEDURE [dbo].[DescripcionObjetos]  
+    AS  
+    SET NOCOUNT ON 
+    DECLARE @DESCRIPCION VARCHAR(4000) 
+    CREATE TABLE #helptext 
+    ( 
+    [Text] VARCHAR(4000) NULL 
+    ); 
+    DECLARE ShowComentsAll CURSOR 
+    FOR 
+    SELECT sysusers.[name] + '.' + sysobjects.[name] AS FullName 
+    FROM sysobjects 
+    INNER JOIN sysusers ON sysobjects.uid = sysusers.uid 
+    WHERE xtype in ('P', 'V', 'FN') 
+    ORDER BY xtype, FullName 
+    OPEN ShowComentsAll 
+    DECLARE @name VARCHAR(250) 
+    
+    FETCH NEXT FROM ShowComentsAll INTO @name 
+    WHILE @@fetch_status = 0 
+    BEGIN 
+    
+    DELETE #helptext 
+    SET @DESCRIPCION = NULL 
+    INSERT INTO #helptext 
+    exec sp_helptext @name 
+    
+    SELECT @DESCRIPCION = [text] 
+    FROM #helptext 
+    WHERE [text] LIKE '--Descripcion:%'  
+    IF (@DESCRIPCION IS NOT NULL) 
+    BEGIN 
+    PRINT @NAME 
+    PRINT @DESCRIPCION 
+    END 
+    
+    FETCH NEXT FROM ShowComentsAll INTO @name 
+    END 
+    CLOSE ShowComentsAll 
+    DEALLOCATE ShowComentsAll 
+    DROP TABLE #helptext 

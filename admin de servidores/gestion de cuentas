@@ -1,0 +1,26 @@
+para habilitar una cuenta admin:
+    yum(para verificar que sudo esta instalado)
+    groupadd admins (creamos un grupo de admins)
+    adduser -g 1001 capacitate201 (agregamos usuario al grupo)
+    usermod -a -G admins capacitate2017 (en caso de que exista,
+    modificamos sus caracteristicas y agregamos al grupo)
+
+editamos el archivo de configuracion de sudo para habilitar los comandos
+que pueden usar los admins
+    sudo visudo
+    (una vez dentro del archivo, usaremos una lista de sentencias llamadas aliases para habilitar comandos
+    usamos la tecla i para agregar lineas al doc)
+    ##networking
+    # Card_Alias NETWORKING = /sbin/route. /sin/ifconfig. etc
+    ##installation and management of software
+    # Card_Alias SOFTWARE = /bin/rpm. /usr/bin/up2date. /usr/bin/yue
+
+    y en la opcion
+    Allows people in group wheel to run all comands
+    %admins ALL=(ALL)   ALL(aqui podriamos poner los alias
+                        de comandos de la lista de sentencias)
+
+i entra al modo edicion
+esc sale del modo edicion
+:w enter guarda cambios
+:q enter para salir del archivo

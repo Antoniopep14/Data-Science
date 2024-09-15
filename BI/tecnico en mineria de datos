@@ -1,0 +1,379 @@
+Metodologia KDD: knowledge discovery in databases, se busca encontrar
+    patrones en DB para conocer la situacion actual o futura y sus
+    fases son;
+        seleccion: determina los objetivos
+        preprocesamiento: recolecta datos utiles para los objetivos,
+            la db debe ser coherente, confiable, relevante y actualizada
+        transformacion: grafica los datos para obtener prespectiva del
+            comportamiento de la informacion, los comportamientos atipicos
+            deben eliminarse, en caso de problemas de dimensianlidad
+            intentar reducirla para facilitar la maniúlacion
+        mineria de datos: elegir el algortimo que mas se adecue a la
+            problematica que necesitamos resolver, pueded ser
+            cluster, serie de timepo, regresion, red neuronal
+        evaluacion: verifica que los supuestos de validacion siempre
+            se cumplan con la validacion cruzada o remuestreo
+    si no es satisfactoria deberemos replantear el problema e intentar
+        con un algoritmo distinto
+    
+Metodologia CRISP-DM: permite relacionar disversos proyectos a partir
+    de la resolucion de 1, y sus fases son:
+        comprension del negocio: establece objetivos, no tecnicos
+            concretos y enfocados a la direccion del negocio, una
+            vez que se tengan se debe elaborar un plan preeliminar
+            enfocado en las herramientas, estrategias y equipo
+        comprension de los datos: contruye tu DB recopilando info 
+            de diferentes fuentes utiles, explora y analisa la info
+            con la que cuentas
+        preparacion de los datos: al terminar la seleccion nombra
+            y describe tus variables, limpia la DB y verifica la calidad
+        modelado: elige la tecnica que te ayuden a resolver la problematica
+            al cambiar de tecnica por falta de solucion lo mas probable
+            es que tengas que regresar a la fase 2
+        evaluacion: verifica la funcionalidad de la propuesta obtenida
+            en el modelado y comparalo con respecto los objetivos de
+            la fase 1
+        despliegue: planifica las medidas que debes tomar para llevar a
+            cabo el plan preeliminar que habias propuesto en la fase 1
+            realizar reporte y monitoreo
+
+Metodologia SEMMA: sample explore modify model assess, se enfoca
+    en la parte tecnica de los datos y sus fases son:
+        muestreo: elige una parte representativa de los datos
+            que deseas manipular, debe ser aleatoria o por medio
+            de un nodo de particion
+        exploracion: analisa la muestra con ayudas de herramientas
+            de visualizacion estadisticas para facilitar la
+            localizacion de outlayers, elementos faltantes,
+            tendencias, ciclos, etc
+        modificacion: selecciona y describe las variables que te
+            sean utiles apra obtener lo resultados que buscas, en 
+            caso de problemas con dimensionalidad tranformar variables
+            con el metodo de analisis de componentes principales
+        modelado: elige un algoritmo que te permita mostrar las
+            relaciones entre variables asi como identificar las
+            posibles combinaciones de datos con el fin de predecir
+            el comportamiento de estos, algunos modelos utiles son
+            el de regresion, arboles de desicion, series de tiempo
+            y clusters
+        valoracion: compara los modelos utilizados para verificar
+            la veracidad de los resultados, la curva ROC puede ser
+            de ayuda ya que mide la sencibilidad y especificidad
+            de la solucion
+
+Medidas de tendencia central: Estadisticos que resumen el comportamiento de los datos mediante un solo valor
+    media aritmetica o promedio: indica hacia que valor se centra
+        un conjunto de datos y se representa con x̅
+    Mediana: representa el valor central del conjunto de datos
+        ordenado
+    Moda: Indica el valor que mas se repite en los datos analizados
+    Cuartiles: representa la division de los datos en 4 partes
+        iguales de tal manera que cada cuartil representa 25% de la info
+
+Medidas de dispersion: parametros estadisticos que muestran que tan alejados
+    estan los datos entre si con respecto a la media es decir su variabilidad
+    rango: intervalo que existe entre el alor maximo y el valor minimo
+        de un conjunto de datos 
+    varianza: sirve para identificar la despersion de oos datos
+        respecto a la media, se representa con sigma al cuadrado
+    desviacion estandar: tiene la misma funcion que la varianza
+        pero es la raiz cuadrada de esta, con el fin de regresar
+        al mismo tamaño los datos, se representa con sigma
+    
+calculo de medidas
+    importa el csv
+    view la tabla
+    attach la tabla: separa variables
+    summary tabla: obten valores
+    mostrara: min, 1.4, media, mediana, 3.4, max de cada variable
+
+media: mean (variable)
+mediana: median(variable)
+moda: tool install packages,moodest, install, packages, marcar casilla
+    mfv(vaeriable) puede dar 2 valores
+
+rango: range (variable)
+intervalo: resta el valor min y max de rango, 
+    entre menos amplio sea el rango menor sera la dispersion
+varianza: var (variable)
+grafica: plot(variable varianza,type="l")
+    entre menor sea el valor de la varianza, menos dispersos
+        se veran los datos
+desviacion estandar: sd(variable)
+raiz cuadrada: sqrt(var(variable desviacion))
+    verifica que el resultado coincida con el de la desviacion estandar
+
+distribucion normal: funcion que muestra como se comportan los datos
+    y que tipo de pruebas son viables para realizar el proceso
+    de modelado, la forma mas comun de identificar la distribucion
+    normal es en forma de campana, para comprobar si se ajusta
+    se realizan pruebas de bondad de ajuste
+
+    instala el paquete nortest
+    ad.test(variable): ejecuta prueba anderson-darling que indica
+        si los datos cumplen la hipotesis de normalidad 
+    verifica el resultado de pi-value:
+        si es menor que 0.05 se debe rechazar la hipotesis de que
+            los valores se comportan como una distribucion normal
+otras pruebas:
+    lillie.test: prueba kolmogorov-smirnov
+    pearson.test: prueba chi cuadrada de pearson
+    shapiro.test: prueba shapiro-wilk
+    sf.test: prueba shapiro-francia
+
+Elaboracion de graficos:
+    dispersion: identificar si existe algún tipo de correlación 
+        entre variables, además de facilitar la visualización de outliers
+        plot(varaible)
+    histograma: representar la distribución de frecuencias de los datos
+        hist(variable)
+    Q-QNORM: Mostrar si existe normalidad en los datos, además de verificar el tipo 
+        de cola que forma la información, así como identificación de outliers. 
+        Complementa con pruebas de bondad de ajuste
+        qqnorm(variable)
+    Q-QLINE: Complementa la gráfica Q-Qnorm al agregar una línea diagonal. Si los datos 
+        siguen la línea marcada, se dice que los valores siguen 
+        una distribución normal
+        qqline(variable)
+    BOX-PLOT O DIAGRAMA DE CAJA Y BIGOTES: Muestra el valor mínimo, 
+        máximo, rango intercuartilar, cuartil superior e inferior, 
+        mediana, outliers y valores extremos
+        boxplot(variable)
+
+CARACTERISTICAS DE UNA MUESTRA: es un subconjunto de datos, que facilita
+        el procesamiento de un conjunto de informacion mayor
+    para identificar el numero de elementos que deben contener
+        se usa una fomula que involucra n:tamaño de poblacion,
+        Z: nivel de confianza, p: probabilidad de exito,
+        q: probabilidad de fracaso, d: desicion, es decir, el error
+        maximo admisible
+    debe cumplir con los siguientes requisitos:
+        aletoriedad: cada elemento debe tener ls misma probabilidad
+        homogeneidad: variabilidad entre datos es minima, ya que provienen
+            de la misma fuente de informacion
+        suficiencia: contiene el numero exacto de elementos para
+            poder realizar un  analissi valido
+        representatividad: el conjunto de elementos seleccionados replica
+            el comportamiento de la info completa
+        
+TECNICAS DE MUESTREO: hacen mas eficiente un proceso en caso
+        de manejar info demasiado pesada, algunas tecnicas son
+    muestreo aleatorio simple sin repeticion:
+        se escribe el nombre de la variable 
+        se le asigna la funcion sample de la 1ra a la ultima columna
+        indica que guarde los elementos necesarios para la muestra
+        enter y verificar con el nombre de la variable
+        escribir el nombre de la variable que guardara la muestra
+        asigna a la variable el indice que debe extraer de la variable de la tabla
+        enter para finalizar el comando
+    muestreo aleatorio simple con repeticion:
+        para este es el mismo metodo anterior pero se agrega a 
+            la primera linea replace=TRUE
+        
+INTERVALOS DE CONFIANZA: se refieren a un rango de valores en los que
+        puede variar el calculo de un estadistico respecto a los
+        valores reales con un cierto nivel de certeza
+    su formula depende del estimador +- margen de error
+    algunos factores que lo modifican con: tamaño de la muestra,
+        nivel de confianza, margen de error o nivel de significancia
+        y estimador
+    para calcular el intervalo de confianza de un conjunto de datos normales
+        la formula depende de la media muestral, media poblacional,
+        desviacion tipica, raiz cuadrada del tamaño muestral y el
+        resultado de la tabla de distribucion normal tomando el
+        valor de a/2
+    
+COEFICIENTE DE CORRELACION: permiten identificar si al manipular
+        alguna variable repercutira en el comportamiento de otras, lo
+        que facilita la implementacion de estrategias 
+    tipos de correlacion:
+        positiva: indica que las 2 variables graficadas se relacionan
+            directamente,una aumenta si la otra aumenta
+        negativa: hace referencia a una relacion inversa, es decir
+            si una aumenta la otra disminuye
+        sin correlacion: el valor de la correlacion es 0, sin embargo
+            no implica que ambas variables sean independientes ya que
+            pueden relacionarse de otra forma
+    para verificar si existe una relacion entre 2 variables:
+        realiza un diagrama de dispersion usando plot(variable1, 2)
+        en la ventana inferior derecha aparecera la grafica de dispersion
+            de las 2 variables y se podra identificar a simple vista
+            si existe relacion o no
+        para obtener el valor preciso de la correlacion usa
+            cor(variable1, 2)
+        el valor que muestra el programa indica el tipo de correlacion
+        entre mas cercano sea a 1 o -1 mas fuerte sera la correlacion
+            positiva o negativa
+
+TIPOS DE ALGORITMO:
+    algoritmos supervisados:
+        arboles de desicion: evaluan varias condiciones para 
+            pronosticar el comportamiento de los datos
+        regresion: relacinoa las variables que pueden tomar mas
+            de un valor en un rango para predecir el siguiente 
+            elemento de un conjunto de datos
+        segmentacion: dividen los datos en grupos que poseen
+            propiedades similares para despues analizarlos
+        asociacion: determinan las correlaciones que existen
+            entre un conjunto de datos
+        analisis de secuencias: obtiene la frecuencia con la
+            que se repite un elemento en un conjunto de datos
+
+    algoritmo de cluster: se usa para clasificar objetos en
+        grupos con caracteristicas similares. usa las distancia
+        euclidea para calcular centrodes y distancias entre
+        elementos
+        carga la db: data(nombredb)
+        asigna a una variable la db
+        despliega la db en una ventana: view(nombredb)
+
+        para obtener su cluster:
+            estandariza los datos de las variables numericas
+                con: 
+                variable[ ,1:4] <- scale(nombredb[ ,1:4]) 1:4 columnas inicial-final
+            calcula la distancia euclidiana con:
+                variable2 z- dist(nombredb[ ,1:4])
+            clasifica de forma jerargica la info de la db con:
+                variable3 <- hclust(nombrevariable2)
+            agrupa los datos por similitud en cuantos clusters desees:
+                (variable4 <- cutree(variable3, k=1)) k=1 el numero de secciones del arbol
+            
+            para graficar el analisis de un cluster:
+                dibuja un dendograma:
+                    plot(variable3, hang=1, cex=0.8, labels=datos_flores (.5), main="Analisis cluster")
+                dibuja un rectangulo que separe a ccada cluster
+                    rect.hclust(agrupamiento, k=25, border="green")
+            ejecuta
+
+ALGORITMO DE K MEDIAS: es un tipo de cluster no jerarquico, su objetivo
+    es clasificar la info de una db en cierto numero de clusters
+    ubica un centride y los actualiza hasta que ya no puede centrarlos
+    es conveniente usarlo cuando sabes el numero de clusters en los que
+    hay que agrupar la informacion
+    para crearlo:
+        crea un archivo rscript
+        data(nombredb)
+        grupo <- kmenas(db[ ,1:4], centers = 4)
+        grupo   .....para desplegar
+        table(grupo$cluster, db[,5]) para mostrar la clasificacion
+            en un tabla
+        plot(grupo$cluster)
+        ejecuta
+    
+ALGORITMO DE ARBOLES DE DESICION: la desiciones se tomas de forma secuencial
+    recorriendo el arbol de forma descendente
+    nodo de desicion(cuadrado): representa donde debe tomarse
+        una desicion
+    nodo de probabilidad(circulo): representa un evento aleario
+    rama(lineas): caminos a los que lleva cierta eleccion
+    
+    para aplicarlo:
+        creamos archivo rscript
+        install.packages("c50", dependences = TRUE)
+        library(c50)
+        data(nombredb)
+        bd <- nombredb
+        view(bd).... para desplegar
+        set.seed(120)
+        variable1 <- nrow(bd)  obten numero de filas de bd
+        variable2 <- round(variable1*0.7) multiplica, redondea y asgina
+        variable3 <- sample(1:variable1, size=variable2)
+            determina los datos de entrada, escribe arguemntos
+            asigna expresion a la variable
+         variable4 <- bd[-variable3,] accede a las columnas de bd
+            y asigna variable
+        variable5<- bd[variable3,]  accede a las filas de bd y asigna variable
+        variable6 <- c5.0(nombreColumnaDBConNombreAclasificar-.,data=variable4)
+            genera el arbol de desicion
+        summary(variable6) obterner resumen de resultados a los
+            que llego el algoritmo
+        plot(variable6) grafica el arbol de desicion
+        ejecuta
+
+ALGORITMO DE REGRESION LOGISTICA: determina la influencia de una
+    variable cuantitativa sobre un cualitativa, los valores que
+    puede tomar la varibale dependiente son:
+        1 ocurrencia del suceso
+        0 la no ocurrencia del suceso
+    su objetivo es modelar la probabilidad de que un sujeto se vea
+        afectado si el suceso ocurre en funcio de cierta variable
+    para hacerlo:
+    abre nuevo R, carga la db, extrae la info de la columnas
+        a usar y asigna a variable, convierte la db en un dataframe
+        instala dplyr para agregar nuevas columnas al dataframe,
+        usa library, agrega columna con mutate y asigna variable
+        
+        obtencion de la regrecion logistica
+        despliega en una pestaña el contenido del nuevo DF, 
+        usa var intermedia-influencia que determina iguala a 0
+        usa formola glm para la regresion logistica y usa los
+        parametros(nombre de variable bin, -, +variables a relacionar
+        , origen de datos, tipo de distribucion de regresion)
+        despliega o ejecuta
+        los valores positivso seran la variable significativa
+
+ALGORITMO DE SERIES: serie de tiempo con intervalos iguales
+    que estudian el comportamiento de las variables en un cierto
+    momento para realizar un pronostico, se debe tomar en cuenta:
+    tendencia: cambio de valor de la media a largo plazo
+    estacionalidad: periodicidad entre un pico y otro en la serie
+    fluctuacion ciclica: las variaciones recurrentes de la 
+        linea de tendencia 
+    los componentes aleatorios: los factores desconocidos que
+        que peuden influir en el comportamiento de la serie
+    
+    abrir nuevo R, instalar TSA, library, cargar db, convertir
+        conjunto de datos en serie temporal con serie.ts <- ts(db)
+        despliega
+
+    para graficar serie temporal:
+    grafica la fluctuacion, tendencia, estacionalidad y 
+        componentes aleatorios de la serie
+        con plot(decompose(db))
+    si quieres conocer solo los rangos numericos solo usa
+        decompose()
+    grafica la serie temporal con 
+        plot(seriets, titulo grafico, leyenda eje x, y)
+
+    para construir el pronostico de la serie temporal
+        instala forecast, library
+        genera varios modelos con auto.arima(serie.ts)
+        obten estadisticos con summary(modelo)
+        ejecuta
+        realiza el pronostico con forecast(modelo, años, nivel de confianza)
+        despliega pronostico
+        fragica el pronotico con plot(pronostico)
+
+ALGORITMO DE REGRESION LINEAL: tecnica que se utiliza para estudiar
+    la relacion entre una variable dependiente y una o mas independientes
+    mediante la obtencion de una formula matematica lineal es decor
+    de la forma y= mx + b donde
+        y= variable dependiente
+        m= es el incremento que se da en y cuando x aumenta 
+        b= altura a la que pasa la recta sobre y
+    abrir R, carga db con data (), selecciona las columnas y filas
+    deseadas con db[1:50, c(1,4)]
+    despliega en una pestaña el contenido seleccionado con view
+
+    determinar si los datos tienen un comportamiento lineal por natulareza
+    grafica contenido con plot(db_var)
+    para comprobar almecena la info de las variables por medio de
+        regresion.lineal <- lm(data=db, formula=sepal.length ~ petal.width) 
+    despliega el modelo con names(regresion.lineal)
+    realiza analisis estadistico de regresion con
+        summary(regresion.lineal)
+    multiple R-squared muestra la asosiacion de variables en %
+    calcula el mejor coeficiente de correlacion para conocer
+        cual es la recta que exlpica de mejor forma los datos de db
+        confint (regresion.lineal, level=nivel de confiabilidad)
+    grafica el modelo de regresion lineal con plot(regresion.lineal)
+
+    un modelo lineal consistente siempre tendra un valor de 1 o -1
+        si existe un relacion total entre variables
+    los valores cercanos a 0 indican un mal ajuste
+
+ALGORITMO DE ASOCIACION: esta formado por reglas que deteinan la relacion
+    entre los elementos de un conjunto de datos, las relas de
+    asociacion determinan cual es el resultado de una transaccion 
+    su estructura es si x(lhs o antecedente) entonces y(rhs o consecuente)
+    

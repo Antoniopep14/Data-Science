@@ -1,0 +1,99 @@
+existen diferentes servicios, compatibles con diferentes SO y herramientas
+MariaDB es compatible con MySQL por ejemplo
+para instalar MariaDB lo descargamos desde la pag oficial
+    creamos un paquete de su instalador
+    ejecutamos comando para ir a la carpeta raiz y ejecutr el paquete
+    comprobamos que se instalo el paquete
+        rpm -qa | grep nombre_del_paquete
+
+para habilitar el servicio:
+     ejecutamos comando para iniciar el servicio
+     usamos comando para empezar a usarlo
+     ejecutamos el comando mysql para acceder al modo administrador del servicio
+     esperamos al cambio de front y podemos ver que ya estamos dentro de la db y po lo tanto podemos usar codigo de mysql
+
+el comando: show databases; nos mostrara las bases de datos existentes
+el comando: quit; no sacara de la administracion del servicio
+los comandos: start, enable, stop, disable, restart
+nos va a servir para detener, desabilitar y reiniciar el servicio durante la operacion y mantenimiento del servidor
+
+CONFIGURACION DEL SERVICIO DE DB:
+-podemos eliminar, modificar y agregar usuarios para administrar sus conexiones
+-una de las configuraciones mas importantes despues de instalar un servicio de db es el fortalecimiento tambien conocido como hardening
+para ello iniciamos el proceso con:
+    mysql_secure_installation
+despues de configurar el hardening reiniciamos el servicio con:
+    systemctl restart mariadb.service
+
+PARA AGREGAR USUARIO Y DB:
+-accederemos al modo administrador usando:
+    mysql -u root -p
+    la contraseña es la misma que se dio de alta al configurar hardening
+para crear db y usuarios usaremos:
+    create database nuevadb;
+    create user 'usuarionuevo'@localhost identified by 'nuevo123';
+    esto creara al usuarionuevo con la contraseña nuevo123
+ahora le damos permisos totales al usuario nuevo sobre nuevadb:
+    grant all on nuevadb.* to 'usuarionuevo' identified by 'nuevo123';
+para verificar al usuario nuevo:
+salimos de la conexion con: exit
+accedemos al usuario con:
+    myssql -u usuarionuevo -p
+    y metemos la contraseña del usuario
+verificamos que el usuario tenga persmisos usando:
+    show databases;
+e ingresamos a la db nuevadb con: use nuevadb;
+la palabra none del front debe cambiar a la de la db
+ahora crearemos una tabla:
+    create table tabla_prueba (dato1 TEXT);
+verificamos que se creo la tabla con:
+    show tables;
+
+si usamos \h podremos ver una lista completa de comandos para la gestion de MariaDB
+
+CONEXION REMOTA TELNET/SSH
+se refiere al acceso remoto del servidor
+primero instalamos TELNET:
+    yum install telnet telnet-(server)-y
+ahora iniciamos y habilitamos el servicio con:
+    systemctl stast telnet.socket
+    systemctl enable telnet.socket
+tenemos que identificar que puerto usa telnet con:
+    ss -tnlp | grep 23
+agregamos una regla en el firewall para que permita la comunicacion por telnet:
+    firewall-cmd --permanent --add-port=23/tcp
+    firewall-cmd --reload
+
+-para acceder desde otro equipo usamos:
+    telnet 0.0.0.0
+    para solicitar un usuario y pasword y comenzar la comunicacion
+
+telnet se considera un metodo inseguro de conexion por que no cifra los datos
+ssh es mas seguro y usualmente viene instalado en linux, en caso contrario usamos:
+    yum install openssh-server openssh-client
+
+para acceder de forma remota usando ssh primero iniciamos el servicio:
+    systemctl start sshd.service
+habilitamos le inicio automatico de ssh con:
+    systemctl enable sshd.service
+
+abrimos la terminal del equipo desde el que queremos acceder y solicitamos acceso:
+     ssh usuario@servidor
+     donder servidor es la ip del servidor y donde deberemos usar la contraseña
+y usamos el comando: -su   para cambiar a root
+tambien se pueden agregar superusuarios que usen el comando sudo para modificaciones del sistema
+
+para eliminar root del acceso ssh usamos:
+nano /etc/ssh/sshd_config
+y el en archivo de configuracion de ssh ubicamos la linea:
+    #PermitRootLogin 
+    a la que tendremos que quitarle el # y poner no en lugar de yes
+despues reiniciamos el servicio con:
+    systemctl restart sshd.service
+adicionalmente se pueden crear llaves para asegurarr la privacidad del servidor
+
+
+
+
+
+

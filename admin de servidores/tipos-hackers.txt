@@ -1,0 +1,122 @@
+Los hackers son expertos en seguridad informática, que se encargan de vulnerar la red 
+de una empresa, con diversos fines.
+Se clasifican en:
+    sombrero blanco:Son expertos que, con autorización, usan sus conocimientos para poner a prueba la seguridad de 
+    las redes. Si encuentran fallas de seguridad, informan al encargado de los servidores para reforzar la protección.
+
+    sombrero gris: Son personas que acceden a la información de los servidores sin permiso, sin
+    tomar ventaja y sin ganar dinero por ello. Cuando violan la seguridad, normalmente lo hacen público.
+
+    sombre negro: Son personas que ponen en riesgo la seguridad de la información de los 
+    servidores con el fin de obtener algún beneficio económico. Lo hacen por medio de ataques a la red.
+
+CONFIGURACION DE FIREWALLS
+antes de configurar un firewall se debe de consultar la direccion ip de la maquina virtual:
+ip address list
+verificar que se encuentre activo el firewall:
+systemctl status firewalld
+en caso de no estarlo:
+systemctl start firewalld
+comprobar que el servicio de direccion ssh este en el sig directorio:
+cd /usr/lib/systemd/system/
+ls 
+la configuracion del firewall se realiza añadiendo y quitando servicios, un ejemplo es quitando el servicio de conexion ssh
+firewall.cmd --zone=public --remove-service=ssh
+descarga y abre el programa "putty":
+ahi escribe la direccion ip de la maquina virtual 172.22.10.237 22
+selecciona la opcion ssh y da clic en open y cierra la terminal con el mensaje de error
+para añadir el servicio de conexion ssh:
+firewall-cmd --zone=public --add-service=ssh
+abre el programa "putty":
+ahi escribe la direccion ip de la maquina virtual 172.22.10.237 22
+selecciona la opcion ssh y da clic en open
+cuando se abra la conexion escribe el usuario y contraseña de la maquina virtual
+del tipo admin@172.22.10.237´s
+si necesitas consultar los servicios activos usa:
+firewall-cmd --zone=public --list-services
+
+verificar las zonas del firewall:
+    sudo firewall -cmd --get - zones
+
+tipos de zonas:
+    de descarte(drop): elimina cualquier paquete entrante y
+        solo las conexiones de red salientes estan disponibles
+    de bloqueo: permite solo conexiones establecidas dentro del
+        servidor y todas las demas peticiones se rechazan
+    publica: acepta conexiones de un puerto especifico y las
+        otras se descartan
+    externa: actua como un enrutador, solo se permite la conexion
+        especificada y asi otras no se aceptan y se eliminan
+    desmilitarizada(dmz): delimita una zona a la que se puede permitir
+        el acceso de algunos de los servicios al publico, acepta
+        solo conexiones entrantes seleccionadas
+    de trabajo: definen redes internas, es decir permite el trafico de redes privadas
+    de hogar: se usa en hogares, confia en las otras computadoras
+        de la red, permite solo las conexiones entrantes seleccionadas
+    interna: similar a la de trabajo, permite el trafico de redes
+        con conexiones seleccionadas permitidas
+    confiable: acepta todo el trafico
+
+verificar la zona actual del sistema:
+    sudo firewall -cmd --get - default - zone
+ 
+cambiar zona:
+    sudo firewall -cmd --set - default - zone=work
+
+visualizar zonas activas e interfacez asociadas:
+    sudo firewall -cmd --get - active - zones
+
+agregar servicio a la zona:
+    sudo firewall -cmd --add -service=nfs(servicio)
+
+remover servicio:
+    sudo firewall -cmd --zone=work --remove - service=nfs(servicio)
+
+guardar cambios en la zona tras reiniciar:
+    sudo firewall -cmd --add -service=nfs(servicio) --permanent
+
+reiniciar firewall:
+    sudo firewall -cmd --reload
+
+listar zonas:
+    sudo firewall -cmd --list - alt 
+
+CONTROL DE PUERTOS
+instalar nmap:
+    sudo yum install nmap
+
+visualizar puertos, status y serv al que pertenecen:
+    sudo nmap -sT -0 localhost
+
+localizar servicios asociados a los puertos:
+    sudo cat/etc/services |(sirve para concadenar comando) grep 631(no puerto)
+
+verificar servicios y procesos no reservados al sistema con 
+referencia al puerto anterior:
+    sudo netstat -anp | grep 631
+
+ver si otro puertos abiertos estan asociados al puerto anterior:
+    sudo |soft -i | grep 22
+
+METODOS DE ENCRIPTACION
+simetrica: misma clave para cifrar y descifrar
+asimetrica: 1 clave publica y otra privada para destinatario
+hibrida: mezcla los 2 metodos anteriores
+
+VLAN:
+    vlan nivel 1: dada por los puertos del conmutador
+    vlan de nivel 2: definida por las direcciones mac 
+    vlan nivel 3: puede ser basada en direccion de red o protocolo 
+        agrupando segun el origen de cada 1
+    
+    permite definir red, implementando flexibilidad en admin
+    alta seguridad en la red, disminucion en la transmision del trafico
+    uso eficiente e implementacion de recursos
+
+dispositivos de red:
+    switches: aparatos que agrupan dif dispositivos de una org 
+    router: convierte info privada en publica para ser mandada al isp 
+        debe tener ipsec, control de acceso por ip, politicas y 
+        grupos de ip, conf de encriptacion, firewall
+    
+

@@ -1,0 +1,50 @@
+GRAFICOS CON PROGRAMACION
+requerimientos: python, pandas, archivo csv
+
+IMPORTAR LIBRERIAS DE PANDAS
+import pandas as pandas
+import matplotlib.pyplot as plt 
+import numpy as np 
+import matplotlib 
+matplotlib.style.use('ggplot')
+
+se deben declarar las variables a utilizar
+importar las fuentes de datos usando:
+    tabla1 = pd.read_csv('sitio1.csv')
+    tabla2 = pd.read_csv('sitio2.csv')
+    tabla3 = pd.read_csv('sitio3.csv')
+
+guarda en variables los datos que usaras de cada archivo:
+    datos1 = tabla1[['ganancias', 'tiempo en sitio', 'paginas vistas']]
+    datos2 = tabla2[['ganancias', 'tiempo en sitio', 'paginas vistas']]
+    datos3 = tabla3[['ganancias', 'tiempo en sitio', 'paginas vistas']]
+
+sacar promedios de cada una de las variables de cada set de datos}
+Promedios1 = datos1.apply(np.mean)
+Promedios2 = datos2.apply(np.mean)
+Promedios3 = datos3.apply(np.mean)
+
+AGRUPAR 9 GRAFICAS o visualizacion multiple 
+f, ((ax1, ax2, ax3), (ax4, ax5, ax6), (ax7, ax8, ax9)) = pit.subplots(3, 3, sharey = True)
+donde ax son los nombres de las graficas ordenados de izq a der y arriba a abajo
+3, 3 es la cantidad de graficas es decir 3x3
+sharedy = True indica que el eje y es compartido y solo se muestra una vez
+
+una vez que tienes los datos y graficas listos, se grafica ed la siguiente forma:
+ax1.scatter(datos1.TiempoEnSitio, datos1.Ganancias) #donde el primer dato pertenece a x y el otro a Y
+
+para agregar los valores esperados con lineas punteadas se usa:
+ax1axvline(TiempoEsp, color='k', linestyle='--')
+ax1axhline(TiempoEsp, color='k', linestyle='--')
+
+para dibujar las lineas de las variables calculasdas anteriormente
+ax1.axvline(Promedios1.TiempoEnSitio, color='k';)
+ax1.axhline(Promedios1.TiempoEnSitio, color='k';)
+
+por ultimo se agragan las etiquetas que se requieren en la grafica
+donde el orden es titulo, variable eje x, variable eje Y
+ax1.set_title('Estilo 1')
+ax1.set_xlabel('TiempoEnSitio')
+ax1.set_ylabel('Ganancia')
+
+y se repite el mismo proceso para las demas graficas

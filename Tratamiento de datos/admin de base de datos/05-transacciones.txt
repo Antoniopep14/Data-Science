@@ -1,0 +1,28 @@
+-una transaccion es un conjunto de ordenes que se ejecutan formando una unidad indivisible de trabajo
+-esto significa que el proceso no puede ser detenido ni dejado a medias
+-si empieza debe terminar
+-si por alguna razon el sistema cancela la transaccion, este desara las ordenes ejecutadas
+hasta dejar la db en su estado inicial
+-todas las transacciones deben cumplir con ACID
+Atomicidad: Garantiza que la operacion se realice en su totalidad o que no se inicie
+Consistencia: asegura que solo se empieza aquello que se puede acabar
+Aislamiento: asegura que una operacion no puede afectar a otras
+Durabilidad: asegura que una vez realizada la operacion esta persistira y no se borrara aunque falle el sistema
+
+para crear una transaccion:
+BEGIN TRANSACTION
+    UPDATE Costumers SET PostalCode = '06450' WHERE CustomerID = 'AAAAA'
+    INSERT INTO Customers (CutomersID, CompanyName) VALUES ('AAAA1', 'Manzana')
+    IF (@@ERROR <> 0) *si error es diferente de 0
+        BEGIN
+        ROLLBACK *inicia un reset en la modificacion de la db
+        PRINT ('ERROR')
+        END
+     ELSE   *osea si error es igual a 0
+         BEGIN
+         COMMIT
+         PRINT ('BIEN')
+         END
+
+
+

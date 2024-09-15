@@ -1,0 +1,33 @@
+Son disparadores de eventos que activan procesos automaticos en la base de datos al utilizat una isntruccion dml especifica
+como insert, delete o update
+cada trigger esta anclado solamente a una tabla y funcionan para proteger a la base de datos de alteraciones
+para crear un trigger:
+CREATE TRIGGER Nombre del TRIGGER
+ON Nombre de la tabla
+AFTER DML(INSERT, DELETE, UPDATE) *aqui se ponen las instrucciones con las que se activara el trigger
+*en lugar de after puedes usar for la diferencia es:
+    con for: se activa primero el trigger y despues la instruccion dml
+    con after: primero el dml y despues el trigger
+AS 
+BEGIN 
+END
+
+**EJEMPLO:
+cuando queremos que al insertar una campo de una tabla de orden se descuenten los productos de otra llamada productos
+CREATE TRIGGER  StockUpdate
+ON              [OrdenDetails]
+FOR INSERT 
+*para este caso ejecutamos el trigger antes del insert para verificar que hay producto en existencia
+AS
+BEGIN
+    DECLARE @Cantidad smallint, @ProductoID int, @Stock smallint
+    SELECT @Cantidad = Quantity, @ProductoID = ProductoID FROM inserted
+    SELECT @Stock = UnitsinStock FROM Products WHERE ProductID = @ProductoID
+    UPDATE Products SET UnitsinStock = @Stock - @Cantidad WHERE ProductID = @ProductoID
+END
+*poner atencion a product y producto, son diferentes
+*se ejecuta para guardarlo en la base de datos, si queremos modificarlo
+solo debemos escribir ALTER en lugar de CREATE al inicio
+*para usarlo solo usamos un insert:
+INSERT INTO [OrdenDetails] (OrderID, ProductID, Quantity) VALUES (10248,14,10)
+*tenemos que verificar que exista el cliente, producto y que no exceda la cantidad del almacen ya que el campo no acepta valores negativos

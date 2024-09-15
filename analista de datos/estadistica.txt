@@ -1,0 +1,87 @@
+estadistica: reune ordena y clasifica datos
+    descriptiva: info a partir de datos existentes
+    inferencial: conclusiones a partir de  parcialidad de los datos
+
+medidas de tendencia central
+    media aritmetica: promedio suma de datos entre los datos que se tienen
+    mediana: valor medio del numero de datos ordenados
+    media ponderada, media geometrica, media armonica, moda
+
+promedio depende de la dispersion de los datos
+la dispersion que se obtiene a partir de la varianza
+varianza: ((cada dato - promedio)cuadrado)/numero de datos
+
+DESVIACION ESTANDAR
+las medidas cuadraticas como la varianza son dificiles de interpretar
+para ello se usa la desviacion estandar que es la raiz cuadrada de la varianza
+la ventaja de usar la desviacion estandar es que representa la variacion de los puntos
+a la derecha e izquierda del promedio
+si el resultado es 0 significa que todos los datos estan en el valor promedio
+
+ANALISIS POR REGLA DE BAYES
+permite incorporar nuevos datos a un analisis previo
+formula = (p(H)*p(E|H) ) / (p(H)*p(E|H) + p(-H)*p(E|-H))
+
+p(H)= probabilidad de que la hipotesis suceda
+p(-H)= probabilidad q de que la hipotesis no suceda
+p(E|H)= probabilidad de que se presente un suceso dado que la hipotesis sea cierta
+p(E|-H)= probabilidad de que se presente un suceso dado que la hipotesis sea falsa
+
+CALCULOS CON PRORGAMACION
+para calcular la media, desviacion estandar y graficar histogramas
+usaremos pandas, seaborn, matplotlib y numpy
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Datos de ejemplo
+datos = np.array([2, 4, 4, 4, 5, 5, 7, 9])
+
+# Calcular la media
+media = np.mean(datos)
+print("Media:", media)
+
+# Calcular la desviación estándar
+desviacion_estandar = np.std(datos)
+print("Desviación Estándar:", desviacion_estandar)
+
+# Calcular la mediana
+mediana = np.median(datos)
+print("Mediana:", mediana)
+
+# Calcular la varianza
+varianza = np.var(datos)
+print("Varianza:", varianza)
+
+# Crear un DataFrame de pandas
+df = pd.DataFrame(datos, columns=['Datos'])
+
+# Visualizar la distribución de los datos usando seaborn
+sns.histplot(df['Datos'], kde=True)
+plt.title('Distribución de Datos')
+plt.xlabel('Valor')
+plt.ylabel('Frecuencia')
+plt.show()
+
+PROBABILIDADES SUBJETIVAS
+Es obtener una prediccion basada en la experiencia, intuicion u opinion
+pasos para aplicarla:
+    enlistar sentencias a comprobar en forma de afirmacion o negacion
+    enlistar a los involucrados en el tema
+    usar las sentencias como encabezados
+    pedir a cada persona que responda sobre la posibilidad de que el evento ocurra en %
+    contruir un grafico de dispersion
+
+HISTOGRAMA 
+grafico en fomra de barras: en el eje x se usan grupos de datos
+    y en el eje Y se registran la ocurrencias o frecuencias(numero de datos de cada grupo)
+se usa cuando quieres observar una tendencia en los datos
+las barras deben ser contiguas y sin espacios
+los datos deben ser divididos para hacer histogramas por cada grupos
+usualmente es por edad, genero o distribucion geografica
+
+
+
+

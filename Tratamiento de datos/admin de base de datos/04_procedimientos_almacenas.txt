@@ -1,0 +1,81 @@
+-es un conjunto de instruccinoes que son ejecutadas cuando lo decidas
+-pueden aceptar parametros de entrada y generar o no resultados
+-dentro de ellos se puede ejecutar otrso procedimientos almacenados
+-por lo general regresan un valor de estado para confirmar si la operacion fue concluida exitosamente
+-los precedimientos llaman a la base de datos al ejecutarse y terminan la llamada al teminar
+-tambien varios usuarios o clinetes pueden ejecutar tareas especificas con los procedimientos sin entrar al codgio directamente
+-reutilizar codigo es una buena practica
+-para crearlo:
+
+CREATE PROCEDURE Nombre del procedimiento
+    AS 
+        codigo 
+    GO
+
+para ejecutarlo:
+EXECUTE Nombre del procedimiento 
+
+**ejemplo
+CREATE PROCEDURE CostumersCountry
+    AS
+        SELECT * FROM Customers
+        WHERE CostumersCountry = 'Mexico'
+    GO
+
+Para modificarlo:
+usaremos ALTER PROCEDURE Nombre del procedimiento
+
+-la diferencia entre funciones y procedimientos es que a las funciones se les llama desde una sentencia
+y los preocedimientos se ejecutan con el comando
+-a los procedimientos tamibie s eles pueden asignar parametros de entrada
+para hacerlo:
+CREATE PROCEDURE InsertUpdate_Customer @CustomerID nchar (5), @CompanyName nchar (5)
+                                        @ReturnID nchar (5) OUTPUT
+*despues se escribe el parametro de salida con el comando OUTPUT
+AS
+BEGIN
+    codigo
+END
+
+para cambiarlo se escribe ALTER
+para eliminarlo se escribe DROP
+Ahora creemos un precodeimiento que agregue valores a una lista
+o los modifique si estos ya existen
+
+CREATE PROCEDURE InsertUpdate_Customers @CustomerID nchar (5), 
+                                        @CompanyName nchar (5)
+                                        @ReturnID nchar (5) OUTPUT
+AS
+BEGIN
+INSERT INTO CustomerID (CustomerID, CompanyName) Values (Customer ID, @CompanyName)
+IF (@@ERROR <> 0)
+    BEGIN
+        UPDATE Customers
+        SET Customers, CustomerID = @CustomerID
+        Customers, CompanyName = @CompanyName
+        WHERE Customers, CustomerID = @CustomerID
+        PRINT('Se realizo un UPDATE')
+    END
+    ELSE
+    BEGIN
+        PRINT('Se realizó un INSERT')
+    END
+    SELECT @ReturnID = CustomerID FROM Customers WHERE Customers, CustomerID = @CustomerID
+END
+
+Para ejecutar este procedimiento, primero tenemos que crear una variable que obtenga el valor del retorno del procedimiento
+por lo tanto debe tener el mismo tipo de datos y longitud
+despues ponemos EXECUTE con el nombre del procedimiento y los valores a agregar a la tabla
+mas la variable que declaramos anteriormente y OUTPUT
+
+DECLARE @back nchar (5)
+EXECUTE InsertUpdate_Customers 'ABABA', 'Puzzle', @back OUTPUT
+  
+para saber el valor de la variable de retorno podemos ejecutar un SELECT
+y asi sabremos que id se modifico o se onserto 
+
+SELECT @back
+
+
+
+

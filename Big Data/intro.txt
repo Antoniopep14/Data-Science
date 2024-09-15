@@ -1,0 +1,254 @@
+las areas que conponen big data son:
+    ecosistema: administrado por servicios de TI y se divide en 2 partes
+        manejo y almacenamiento de datos: compuesto de 3 areas
+        que son las funetes de datos ya sean estructurados y no estructurados,
+        el nucle de bigdata que contiene las herramientas de organizacion de 
+        datos estructurados com los ETL ademas tiene la arquitecturra que procesa los 
+        datos distribuidos, la administracion de los datos operacionales que 
+        contiene datos operativos procesados y sin procesar
+        analisis y aplicaciones: compuesto de la analitica de bigdata que a su vez se
+        divide en el ambiente de desarrollo y los productos de analisis,
+        y la otra parte los usuarios, ya sean finales o analistas de negocios
+
+proceso de aprovechamiento de datos masivos: 
+    se obtienen datos, lo no estructurados van directamente al 
+    nucleo de procesamiento y los estructurados pasan antes por 
+    herramientas de administracion
+
+    la salida del nucleo son archivos no SQL que pueden alimentar
+    a la parte de biganalitycs o ser parte de los datos operativos
+    incluso ambas 
+
+    big analitycs a su vez alimenta las aplicaciones y a los
+    analistas de negocios, estos usuarios tambien obtienen 
+    alimentacion de los datos operativos
+
+    para que se cumpla el ciclo de vida, los usuarios tambien 
+    envian info de vuelta a biganalitycs y a los datos operativos
+
+    para terminar todo regresa al nucleo de procesamietno de bigdata
+    y el flujo se repite continuamente
+
+Componentes de bigdata:
+    el termino ciclo de vida se refiere a los procesos que tienen
+    que suceder para aprovechar los grandes datos, el modelo se
+    compone de 4 macroprocesos:
+        registro y recoleccion de datos de varias fuentes
+        filtros enriquecimiento y clasificacion de los datos
+        analisis, modelado y prediccion de los datos
+        entrega y visualizacion de los datos
+    el ciclo de vida solo es posible si hay una completa identificacion
+    de los datos con referencia cruzadas y enlaces implementados
+    en la infraestructura, normalmente el ciclo se retroalimenta 
+    en varios puntos segun el proposito de la aplicacion
+
+infraestructura de bigdata:
+    para poder almacenar y manejar toda esa cantidad de datos 
+    se utilizan clusters, que son conjuntos de maquinas independientes
+    pero interconectadas entre si, a cada una se le conoce como nodo
+    y tienen el fin de funcionar como supercomputadoras
+
+    las ventajas que ofrecen son:
+        trabajo en paralelo que proporciona tolerancia a posibles fallas
+        alto rendimiento
+        soporte de altas cargas de trabajo
+        escalabilidad
+
+    usualmente los clusters esta desarrollados en sistemas de 
+    codigo abierto que tienen:
+        sistema de archivos distribuidos que hace que los datos del
+        cluster sean divididos en bloques y se atribuyan dentro del mismo
+        lo cual brinda escalabilidad al sistema
+
+        un nucleo que mapea y reduce los datos divido en 2 procesos
+        el mapeo y la transformacion(cada elemento se convierte en nua tupla)
+        y el de reducir que toma el conjunto de tuplas combinandolas
+        para hacer un conjunto mas pequeño
+
+        y un conjunto de bibliotecas que hace que se puedan soportar varios subproyectos
+
+    Tipo de programación que se usa para aprovechar Big 
+        mapreduce
+
+    componentes auxiliares: se usan dependiendo del caso de usuarios
+    y su porposito es apoyar en infraestructura, analitica, aploicaciones
+    y obtencion de datos de distintas fuentes
+
+todas la herramientas (software) de bigdata se encuentran dentro
+de los siguientes conjuntos: infraestructura, analitica, aplicaciones
+infraestructura cruzada, licencia libre y fuentes de datos
+
+si buscamos bigdta landscape en el navegador podremos ubicar las
+herramientas pertenecientes a bigdata segun el proposito que tengan
+dentro del modelo general
+
+API: interfaz de programacion de aplicaciones
+    son instrucciones que le indican al sistema como satisfacer
+    al usuario y le devuelven una respuesta
+tipos de api:
+    select: regresan el registro de un objeto
+    list: regresa una lista de registros relaiconados con un b¿objeto especifico
+    update: hace modificaciones en la db
+
+Bases de datos:
+    SQL o relacional
+    noSQL o no relacional:
+        orientadas a clave-valor: coleccion de pares de claves y valores
+            cuando se requiere recuperar un dato se busca por su clave
+        orientadas a documentos: colecciona documentos que a su vez
+            coleccionan tuplas de campo-valor
+            los valores ya sean de los documentos o clave-valor pueden ser
+            documentos, arreglo o listas formando una estructura similar a 
+            los arreglos JSON
+            los documentos se agrupan en colecciones, cada documen to tiene su id propio 
+            
+        orientadas a columnas: diseñadas para realizar consultas y subir
+            grandes cantidades de datos, gestiona familias de columnas
+            parecido al modo relacional donde cada fila puede tener una 
+            columna diferente y cada registro es una columna de datos
+        orientadas a grafos: la info se presenta como nodos en un grafos
+            con relaciones entre sus aristas
+
+        
+
+usualmente se usan noSQL cuando:
+    el volumen de los datos crece muy rapidamente en momentos puntuales
+    la escalabilidad de la solucion relacional no es viable en costo y nivel tecnico
+    la demanda del sistema por parte de los usuarios es muy elevada comunmente
+    el esquema de la base de datos no es homogeneo
+
+ventajas de nosQL:
+    la mayoria son de codigo abierto
+    facil escalabilidad
+
+desventajas noSQL:
+    soporte tecnico limitado
+    tecnologia relativamente nueva
+    pocas herramientas compatibles para inteligencia de negocios
+    pocos especialistas en este tipo de db
+
+big data: datos no estructurados
+
+big analytics: reducir costos de operacion, mejorar toma de decisiones
+    ofrecer nuevos productos y serv, genera eficiencia en las operaciones
+ tecnicas de analisis de bigdata:
+    cientificos de datos: desarrollan modelos apatir de:
+        analisis predictivo, mineria de datos, analisis de texto
+        analisis estadistico, machine learning, visualizacion de datos
+ 
+datalake: depositorio central de datos brutos
+
+analisis de sentimientos: su funcion es conocer la actitud de un
+    usuario hacerca de un tema, para clasificar la polaridad de
+    un texto para dar valor a las opiniones publicas
+
+    se hace con la bibliteca request y necesitas la apikey,
+    lenguaje y liga de peticion. Esta ultima debe tener el texto
+    a analizar(link web), leguaje y la apikey
+
+    el request a la liga de peticion se hace con el metodo get
+    al final se guarda el resultado en un json
+
+machine learning: usualmente son de tipo no supervisado, aqui se ingresa
+    una muestra de datos y se deja al programa decidir por si solo
+    las categorias mas usadas de ML no supervisado son:
+        clasificacion estadistica: identifica a que categoria pertenece 
+            un nuevo grupo de datos
+        clustering: agrupa una serie de objetos con sus similares, a los
+            grupos se les llama clusters
+        regresion: estima las relaciones entre variables
+        deteccion de anomalias: identifica elementos u observaciones que 
+            no cumplen con una patron esperado
+        reglas de asociacion: descubre reglas interesantes entre variables
+            de una gran base de datos
+        entre otras tecniacs especializadas
+
+ejemplo de analisis de sentimientos:
+    import facebook 
+    import requests 
+    
+    
+    token = "******" 
+    graph = facebook.GraphAPI(token) 
+    cantidadComentarios = 100 
+    PageId = '1415691342026378' 
+    
+    cuentaComentarios = 0 
+    ListaComents = [] 
+    
+    bandera = False 
+    
+    coments = graph.get_connections(PageId, 'feed') 
+    
+    print(coments) 
+    
+    
+    
+    
+    while True: 
+        try: 
+            for coment in coments['data']: 
+                lstComent = [] 
+                try: 
+                    mensaje = coment['message'] 
+                except KeyError : 
+                    continue 
+                print(mensaje)  
+                lstComent.append(mensaje)  
+                ListaComents.append(lstComent) 
+                cuentaComentarios  = cuentaComentarios + 1 
+                print("") 
+                if (cuentaComentarios >= cantidadComentarios): 
+                    bandera = True 
+                    break 
+            if (bandera): 
+                break 
+            coments = requests.get(coments['paging']['next']).json() 
+        except KeyError : 
+            break
+
+web scrapping: existen diferentes tecnicas y se dividen segun su nivel de automatizacion
+    copiar y pegar, regex para no HTML, algoritmos de mineria de 
+    datos(programa que detectan scripts y extraen su contenido),
+    parseo de HTML(para documentos html), aplicaciones
+
+estructura de un dashboard: para hacerlo debemos definir los KPIs
+    de la organizacion y seleccionar los 3-4 mas importantes, seleccionarlas grficas que muestren
+    los comportamientos de los KPIs elegidos, las graficas deben ir en 1
+    solo panel con filtros, funciones de ordenamiento y descripcion
+    porr ultimo diseñarlo en una plataforma web de facil acceso 
+    para tu cliente
+
+creacion de graficos en tiempo real: se realiza a traves de una
+    pagina web que utilize un servicio php y que regrese un json
+
+creacion de graficos en web: ahorran costos de hardware y software
+    
+creacion de un servicio web: brindan info en xml o json, requiere php
+    db no sql y biblioteca de datos no sql
+
+tareas del cientifico de datos con respecto a los datos:
+    debe adquirirlos, analizarlos, filtrarlos, extraerlos,
+    representarlos, refinarlos e interactuar con ellos
+
+campos que mas requeiren cientificos de datos:
+    farmaceutica, institutos de inv, biotecnologia y serv de TI
+
+apache hadoop: framework especializado en el tratamiento de datos con gran escalabilidad
+    incluye 4 modulos:
+        common: utilerias que soportan otros modulos
+        distributed file system(HDFS): sistema de arhcivos distribuidos
+            que provee alto acceso a los datos
+        Yarn: herramienta para administrar recursos de los cluster y 
+            planificar tareas
+        mapReduce: sistema basado en YARN para procesar paralelamente
+            una gran cantidad de datos
+    
+    Pero hay otra herramientas compatibles como bases de datos,
+    infraestructura para datawarehouse, motores, etc.
+
+    ademas maneja datos de manera fluida pues no requieren ser estructurados
+    tiene un modelo simplificado de programacion
+    facil de administrar por su escalabilidad modular
+
+

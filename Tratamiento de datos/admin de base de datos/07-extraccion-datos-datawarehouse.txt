@@ -1,0 +1,10 @@
+ETL: Es la extraccion, transformacion y carga de datos de una db a un DW
+las arquitecturas de ambos son diferentes, por eso deben ser transformados para despues ser cargados
+un DW debe ser diseñado acorde a las db de donde obtendra informacion
+
+**investigra aparte el uso de programas, porque esta obsoleto
+
+
+
+
+

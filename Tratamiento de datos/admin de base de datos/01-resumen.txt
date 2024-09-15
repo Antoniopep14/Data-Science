@@ -1,0 +1,55 @@
+se encarga de la disponibiliad y seguridad de los datos
+los datos se transforman en informacion para su analisis, para ello se aplican metodologias de extraccion de datos
+SQL: Leguaje estructurado de consulta
+sql se divide en:
+    -leguaje de definicion de datos: create, alter, drop(elimina un objeto), truncate(elimina todos los datos de una tabla sin eliminar la tabla)
+    -leguaje de manipulacion de datos: insert, update, delete, select(busca info)
+
+EL primer campo de una tabla siempre es una llave primario, despues las foraneas y despues los otros elementos
+cardinalidad: es la relacion entre elementos de distintas entidades
+para construir una tabla relacional debemos:
+    1.- definir todas las entidades o tablas necesarias del modelo
+    2.- establecer las relaciones
+    3.- normalizar hasta la 3ra forma normalizar
+    4.- elegir atributos y excluir datos que se puedan inferir de otros campos
+    5.- siempre que tengas una relacion de muchos a muchos es mejor hacer una tabla cruzada
+
+Las tablas cruzadas se usan cuando tenemos una relacion de muchos a muchos para evitar problemas de duplicidadd con las llaves
+
+ALMACEN DE DATOS: DW: data warehouse: 
+Es una db orientada al analisis de informacion, solo se enfoca en extraer info de otras db
+ETL: extraccion, transformacion y carga
+separacion almacen: carga
+almacen obtener info: extraccion
+principiio de separacion: transformacion
+gracias al etl la info que se consulta no esta anclada a la db 
+Data marts: son db departamentales que se alimentan del DW con el fin de hacer las busquedas mas eficientes
+
+ESQUEMAS DE ALMACENES DE DATOS
+Esquema de estrella: una tabla de hechos rodeada de dimensiones, donde las tablas de dimensiones
+    recaen en la segunda forma normal, estan conectadas directamente a la de hechos
+    La tabla de hechos puede ser llamada una tabla cruzada de la de dimensiones y su llave primaria es una 
+    combinacion de las llaves primarias de las demas tablas mas sus atributos
+    Las dimensiones tambien se pueden formar del uso de otra tabla, pero no se divide ya que eso es de la sig tabla
+Esquema de copo de nieve: <es paarecido a un modelo relacional, ya que cumple con la tercera forma normal
+    Esta diseñado para mantener las tablas de dimensiones
+    Este esquema ahorra espacio en memoria
+    Pero no tiene un buen rendimiento
+    Outrigger: tabla de dimensiones unida a otras tablas de dimensiones
+    liente almacen sudimensiones: copo de nieve
+Esquema de constelacion: Tienen mas de una tabla de hechos
+    Tiene mucha flexibilidad, pero sacrifica facilidad y pueden ser dificiles de mantener por el crecimiento de los datos
+
+CREACION DE UNA BASE DE DATOS:
+    para usar un software de diseño de base de datos el proceso es el sig:
+    1.- Conexion al manejador de db
+    2.- creacion de una db
+    3.- creacion de tablas y atributos
+    4.- relaciones entre tablas
+    5.- modificacion de llaves primarias
+    auto incremento: indetity
+
+    
+    
+  
+    

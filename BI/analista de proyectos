@@ -1,0 +1,461 @@
+innovación tecnologica:
+    business intelligence: usar el conocimiento para generar ganancias
+        optimizando procesos y facilitando la toma de decisiones
+    BI presenta tableros de control con la informacion procesada
+    y monitoreada para:
+        observar la situacion dentro y fuera de la empresa
+        comprender los origenes de los problemas por los que atraviesa
+        predecir el comportamiento de la produccion, ventas, gastos
+            materiales y necesidades de los clientes
+        colaborar con proovedores o empresas mas eficientemente
+            reduciendo gastos innecesarios
+        decidir la estrategia necesaria para objetivos concretos
+
+negocio TI: para que una solucion de negocio ti sea implementada
+    el negocio debe tener cierta madurez, despues se plantea alinear
+    los objetivos de negocio con las acciones que realizan los
+    departamentos de tecnologia.
+        realiza un estudio a detalle de los procesos del negocio y TI
+        establece valores cuantitativos a los objetivos
+        crea vinculos directos entre el negocio y los sistemas de TI
+        realiza una grafica con los valores obtenidos
+        realiza un estudio de mercado entre los directivos y el area de TI
+        identifica proveedores de servicios que dispongan de servicios integrales para la integracion de TI
+
+objetivos de la organizacion: es la clave para crear un plan de acciones
+    para definirlos:
+        recopila info de los aspectos mas importantes de la empresa
+            como personal requerido, herramienta, equipo, instalaciones
+            gastos generales, alcance y crecimiento, plazos de entrega
+        clasifica las necesidades inmediatas de la empresa como 
+            capacitacion de personal, actualizacion de tecnologias
+            adiquisicion de nuevos recursos
+        describe las caracteristicas de los objetivos tomando como
+            referencia mejorar la calida de alguno de los servicios
+            ya sea la calidad o los atributos
+        mejora el uso de los recursos en la organizacion, incrementar
+            productividad, eficiencia, efectividad, consistencia, satisfaccion
+            rendimiento; a su vez disminuir tiempo de desarrollo de nuevo modulos
+            tiempo de actualizacion y adaptacion
+
+mapeo de los procesos del negocio: deben cumplir con los objetivos
+    y sus requerimientos clasificarse en 3 componenetes:
+        requeridos: lo que un area de proceso necesita y se divide en metas 
+            especificas y objetivos generales
+        esperados: lo que se puede implementar para lograr un componente requerido
+            y se establecen por medio de acciones o practicas especificas
+        informativos: proporcionan detalles que ayudan a pensar en 
+            como aproximarse a los otros 2
+    despues de indentificar los componentes se realiza un modelo
+    de procesos de negocio o BPM documentado, que es un diagrama
+    que describe el flujo de actividades que se realizan para 
+    lograr estos requerimientos
+        indica con el simbolo(circulo) el inicio del proceso
+        apunta con una flecha hacia el simbolo del evento
+        continua con el flujo de la informacion con una flecha que apunta
+            a la primer actividad a realizar
+        crea con el simbolo(rombo) la condicion que ayuda a verificar
+            si los miembros del equipo estan disponibles
+        en caso de no estar disponibles el diagrama se termina con el simbolo
+            correspondiente(circulo)
+        en caso de estarlo el sig paso es crear la actividad de aceptar
+            asistencia y crea una flecha que una al inicio de diagrama
+
+plan para la direccion de proyectos BI: su desarrollo se divide en
+    analisis, planeacion, ejecucion, control, cierre
+    todas las actividades deben organizarce en un acta contitutiva
+        plantesa la gestion del alcance del proyecto
+        calcula la duracion de cada actividad de desarrollo en el rango planteado
+        calcula los costos asociados al protecto y diseña un plan de reajuste
+        mide la efectividad del proyecto
+        planea los roles de las personas
+        implementa una estrategia de comunicacion
+        cuantifica los elementos que pueden causar el fracaso y prepara un plan de emergencia
+
+    organiza la info obtenida dentro del plan de proyecto asi:
+        reune info y ordena los elementos que definen la arquitectura
+        establece las estructuras que componen la arquitectura
+        crea el diseño de la arquitectura de forma concisa y clara 
+        identifica posibles problemas y riesgos
+        desarrolla el sistema conforme la arquitectura establecida
+
+requerimientos de negocio: es pecificacion que describe alguna 
+    funcionalidad, atributo, factor de calidad o restriccion
+    para valorar su nivel de importancia: 
+        nivel superior: requerimientos que expresan las reglas
+            y procedimientos para el funcionamiento de un negocio
+        nivel medio: las acciones que deben describir, como el usuario
+            puede usar el sistema
+        nivel inferior: requerimientos que describan situaciones o elementos
+            detallados que se necesitan para el sistema
+        
+        caracteristicas del nivel superior:
+            describir las reglas del negocio(politicas, estandares de calidad
+                practicas o procedimientos para explicar la vision y alcance
+                del proyecto)
+            liga todos los requerimientos a estas reglas
+            describe toda la funcionalidad del sistema
+            no especifiques lo detalles tecnicos, solo define la logica
+                global de cada servicio como objetivos
+            
+requerimientos del usuario: describen con mayor detalle los servicios
+    disponibles para los usuarios mediante el sistema de BI, algunos
+    requerimientos mas comunes son:
+        interfacez faciles de usar
+        contenido de calidad
+        buenas referencia visuales
+        requerimientos primarios: servicios o funcionalidades que 
+            los usuarios utilizan en el sistema y son clave para los procesos de negocio
+        requerimientos secundarios: acciones que realiza el sistema
+             de las cuales se puede prescindir en el caso de que se 
+             agote el etimepo para ser desarrollada
+        
+requerimientos funcionales y no funcionales: 
+    funcionales: acciones que realiza el sistema para brindar
+        actividades a los usuarios
+    no funcionales: cualidades que debe tener el sistema para
+        o evaluar la calidad de la estetica deseada
+    
+    para definir si es funcional o no, debemos de definir los 
+    atributos de calidad definidos por la organización:
+        usabilidad: el usuario debe interactuar facilmente el sofware
+        confiabilidad: el sistema debe restaurarse de alguna falla critica 
+        mantenibilidad: el soporte tecnico debe reparalo de forma rapida e integracion
+        restriccion: los usuarios deben tener limites en el uso, lenguaje y herramientas
+        seguridad: los sistemas deben tener proteccion en los datos, sofware y plataforma
+        disponibilidad: funciona sin interrupciones
+        extensibilidad: puede crecer en capacidad y adquirir mejoras en el futuro
+        escalabilidad: debe ser capas de adaptarse al crecimiento
+
+        especificaciones de requerimientos:
+            identifica las necesidades(usuarios y mesa directiva o area de desarrollador)
+            recopila y sintetiza necesidades de stakeholders
+            verifica si una funcion cubre una o mas necesidades
+            traduce las necesidades en funciones tecnicas
+            verifica las herramientas disponibles
+            analiza el presupuesto
+
+documento vision: una vez recopilada la info y datos, es necesario
+    llevar un registro dentro de la informacion dentro de un documento
+    vision en el que se define el alcance del proyecto:
+    introduccion:
+        introduce al proposito del documento
+        delimita el alcance del proyecto
+        realiza un glosario de definiciones, acronimos y abreviaciones
+        incluye las referencias
+        incluye un resumen del contenido del documento
+        explica la metodologia de desarrollo del proyecto
+    posicionamiento:
+        explica los aspectos de la orgnizacion como contexto para proyecto
+        da breve descripcion y explica a quien afecta y su impacto
+        revision de cualidades que se buscan mejorar
+    descripcion de los stakeholders:
+        menciona los involucrados del proyecto en tabla con nombre,
+        rol, tipo de usuario, responsabilidades en el sistema, criterios
+        de exito para evaluar desempeño, problemas clave a los que se
+        enfrentan, involucramiento con el proyecto
+    entorno del usuario: describe la estrucutra de la organizacion en organigrama
+        muestra antecendentes de sistemas relacionados que responden
+            a la problematica
+    descripcion del proyecto: describe el proyecto con las caracteristicas
+        de la organizacion
+        integra los modelo BPM para mostrar la serie de procesos que realiza el sistema
+        perpectiva del producto: como debe cambiar al sistema los objetivos
+            de los interesados
+        enlista los beneficios y componentes del sistema que los satisfacen
+        identifica los requerimientos 
+        recapitula cifras como el costo de produccion del sistema
+        cataloga los recursos humanos que hace falta 
+        enlista el uso de licencias de desarrollo para el uso de 
+            software especializado
+    descripcion del producto: 
+        describe las caracteristicas que delimitan el proyecto
+        del software(restriccion)
+        describe las limitaciones que el equipo de desarrollo no puede modificar
+        enlista los estandares oficiales que usa la organizacion
+        desgloza a detalle los requerimientos(desempeño, documentacion o de ambiente)
+        explica cuando como y donde se realizara la entrega de la documentacion
+            con datos de contacto, guias de instalacion y configuracion
+        incluye un breve apartado de conclusiones y anexos
+
+analisis de datos de serv web:
+    web scrapping:marketing de contenidos
+        ganar visibilidad
+        controlar la imagen de la amrca en internet
+    obtiene datos de internet
+        regex(codigo) scrip que extraen contenido
+        org la info con falseo de html
+        entregan graficas
+    tomar en cuenta aspectos legales
+
+analisis de datos de produccion:
+    gastos- ventas: nomina, materias, produccion, costos de produc
+        tasa promedio de rendimiento , punto de equilibrio
+    info subjetiva: aceptacion de nuevos producc, satisfaccion, proveedore
+        empleados
+    web scrapping y mineria de datos
+
+    relaciona diferentes variables economicas con regresion lineal
+    establece relacion de probabilidad
+    crea modelo de seguimiento con analisis de histograma
+
+analisis de datos del mercado:
+    obtener info de la competencia
+        conoce a los competidores y su ubicacion
+        identifica oportunidades y adelantate a la competencia
+        detecta fortalezas y da continuidad
+        prevee la reaccion de la competencia
+        impulsa nuevo productos y proyectos con apoyo de los expertos
+
+    analizar cifras de la competencia:
+        numero de clientes
+        dedcuce perfil de clientes
+        analisa calidad de reputacion y satisfaccion
+        tecnicas de mercadotecnia
+        lo mismo con tus datos
+        compara
+
+        analisis de datos de serv web:
+        web scrapping:marketing de contenidos
+            ganar visibilidad
+            controlar la imagen de la amrca en internet
+        obtiene datos de internet
+            regex(codigo) scrip que extraen contenido
+            org la info con falseo de html
+            entregan graficas
+        tomar en cuenta aspectos legales
+    
+    analisis de datos de produccion:
+        gastos- ventas: nomina, materias, produccion, costos de produc
+            tasa promedio de rendimiento , punto de equilibrio
+        info subjetiva: aceptacion de nuevos producc, satisfaccion, proveedore
+            empleados
+        web scrapping y mineria de datos
+    
+        relaciona diferentes variables economicas con regresion lineal
+        establece relacion de probabilidad
+        crea modelo de seguimiento con analisis de histograma
+    
+    analisis de datos del mercado:
+        obtener info de la competencia
+            conoce a los competidores y su ubicacion
+            identifica oportunidades y adelantate a la competencia
+            detecta fortalezas y da continuidad
+            prevee la reaccion de la competencia
+            impulsa nuevo productos y proyectos con apoyo de los expertos
+    
+        analizar cifras de la competencia:
+            numero de clientes
+            dedcuce perfil de clientes
+            analisa calidad de reputacion y satisfaccion
+            tecnicas de mercadotecnia
+            lo mismo con tus datos
+            compara
+
+plan de calendarizacion del proyecto:
+    documento de plneacion de proyecto:
+        recursos humanos
+        tiempo
+        alcance
+    
+        asignando recursos:
+            duracion fija
+            trabajo fijo
+            recursos fijos
+        
+        desglosado de tareas:
+            tomar peor escenario posibles
+            calcular rango de duracion de incio y termino
+            determina donde son necesarios lo recursos con la ruta critica
+            asigna margen de tiempo entre actividades
+
+limpieza de datos estructurados:
+        ejecutar software de limpieza
+        new project
+        abrir archivo .csv 
+        create project
+        clic en encabezado y text facet 
+    depuracion de info:
+        select el de mas registros
+        clic en editar y copiar
+        para los otros edita y pega el nombre copiado
+        apply
+
+limpieza de datos no estructurados:
+    eliminar info basura:
+        identificar patrones de info sin importancia:
+            column-text filter
+            usar parabra comun con info innecesaria
+            marcar con estrella los que queremos conservar
+            all-facet-facet by star 
+            incluye false y excluye true 
+            all-edif rows-remove al matching rows
+            repetri con cada palabra considerada
+    
+        eliminar info repetida:
+            column-facet- text facet
+            count 
+            selec registro que no tenga 1 como identificador
+            column-edit cell- blank down
+
+        eliminar registros en blanco:
+            column-facet-text facet
+            seleccionar blank(ultima opcion)
+            all-edit rows- remove all matching rows
+
+diagramas y modelos:
+    un modelo debe debe ser:
+        explicito
+        verificable
+        repetible
+
+    diagrama:
+        pregunta a responder
+        variables que respondan a la pregunta
+        agrupa variables por las que se tienen, se pueden obtener
+            y no se pueden obtener
+        bosquejo de pares de variables que se relacionen directa 
+            o indirectamente
+        crea red donde todas las variables se relacionen
+        el modelo se contruye a partir de los diagramas
+
+KPI:
+    indicador clave de desempeño son rangos que permiten medir aspectos
+        clave del negocio
+    clasificaciones:
+        especifico: alineados a los objetivos estrategiscos y de la oranizacion 
+        medibles: se representan con cifras exactas sin aproximaciones
+        alcanzables: faciles de implementar siguiendo el modelo o proceso del negocio
+        realistas: se ajustan a la situacion actual de la empresa y
+            proyectos futuros a corto y mediano plazo
+        a tiempo: se adecuan a la madurez y ciclos actuales del negocio
+    
+    definir kpi:
+        revisar el acta constitutiva del proyecto
+        establce medidas que reflejen la situacion de los datos
+        define rangos altos, medios y minimos que las cifras no deben pasar
+        asignar un responsable pendiente a esas cifras
+        
+planeacion de analisis de TI:
+    identificar los datos prioritarios
+    evalua con la ayuda de un especialista los datos de la empresa
+    define las decesidades TI de la empresa
+    realiza ajustes necesarios
+
+    contratar personas necesarias que:
+        apliquen la direccion de proyectos al sector de TI
+        dominen la arquitectura de computo en la nube
+        adecuen la infraestructura TI para generar soluciones
+        creen analisis de datos aprovechando la infraestructura TI
+        recomienden la tecnologia adecuada para soluciones al area de TI
+    
+plan de cambios al proyecto:
+        4 fuentes de cambio:
+            nuevos negocio
+            nuevas necesidades del cliente
+            reorganizacion del negocio
+            restricciones de presupuesto
+        
+    comite de control de cambios:
+        director del proyrcto
+        arquitecto del proyecto
+        admin del proyecto
+    
+        pasos para aceptar un cambio:
+            evaluacion del impacto
+            busqueda de alternativas
+            aprovacion del comite
+            ajuste al plna del proyecto
+            notificacion a los interesados del cambio
+            geestion del proyecto acorde al nuevo plan
+        
+    solicitud del cambio debe contener:
+        fecha de aceptacion
+        proyecto al qu pertenece
+        modulo afectado
+        programador responsable
+        descripcion del cambio
+        justificacion del cambio
+        prioridad del cambio
+        firma
+    
+    marcar el cambio en la documentacion del proyecto:
+        fecha ce aceptacion
+        proyecto al que pertenece
+        modulo afectado
+        programador que pide el cambio
+        fecha de termino del cambio
+
+    plan de gestion de riesgos: monitorea medidas correctivas y preventivas
+        tener lista de las personas de cada area de la org
+        registros de incidencias pasadas
+        reporte de los recursos utilizados en el sector TI 
+        definir probabilidad e impacto de los riesgos
+        registrar info en una matriz relacionados con los obj de la empresa
+        crear formatos con resultados de analisis
+        describir seguimiento y auditoria de las incidencias
+        prevee otros riesgos
+        clasifica riesgos por probabilidad de ocurrencias y medir nivel de impacto
+        elaborar plan de respuesta
+        diseñar plan de monitoreo y control para prevenir incidencias
+        ejecutar periodicamente el plan de respuesta
+        debe integrarse al plan de gestion
+
+    plan de gestion de monitoreo y control: mide plan de respuesta
+        ratrea riesgo al momento
+        monitorea efectos secundarios o modificaciones por incidencias
+        considerar modificaciones para prevenir eventualidades o correcciones
+        identificar riesgos
+        integrar acciones que no estaban contempladas
+
+        verificar en informes que las consecuencias de incidencias sean corregidas
+        clasificar la info en 3 rubros:
+            info sobre riesgo confrontado
+            principales aocntecimientos que se solucionaron y que tuvieron el mayor num de consecuencias
+            condicion actual ed los emtodos de deteccion de riesgos
+        usar en caso de que falle el control de problemas
+        identificar riesgo adicionales que hayan surgido y como se solucioinaron
+
+tendencias en metodos de analisis:
+    estructura de modulos de frameworks para limpieza de datos:
+        common: utilerias que soportan otros modulos
+        distributed file system: dfs que provee alto acceso a los datos
+        YARN: herramienta para administrar recursos de los clusters
+        MapReduce: sistema basado en YARN para procesar una gran cantidad de datos
+
+        clustering:
+            busca patrones en un set de datos y los agrupa
+            correlaciona los subgrupos para encontrar nuevos patrones
+            grafica los patrones 
+            usa la info para tomar desiciones de mercadotecnia, produccion y ventas
+
+estrategia de servicios: priorizar objetivos
+    retomar resultado de BI para analizar debilidades y fortalezas
+    establecer objetivos o reajustar existentes
+    abastecer la demanda
+    gestionar los recursos o capacidades
+
+    formulacion de estrategia:
+        reconocer el valor de los serv de la empresa vs competencia
+        determinar el mercado potencial
+        establecer los resultados que quieren alcanzar, prioridades e inversiones
+        calcula la proyeccion del retorno de inversion
+    
+plan de mejora de procesos:
+    objetivos:
+        incrementar usuarios conformes
+        dar soporte a la fase de estrategia y diseño
+        monitorizar parametros del seguimiento de sistema:
+            conformidad, calidad, rendimiento, valor
+        para control y monitoreo usar ciclo phva:
+            planificar, hacer, verificar, actuar 
+        
+    etapas de mejora continua:
+        agrupa metricas: tecnologicas, de procesos, de servicios
+        define las metricas mediante factores criticos de exito
+        recopila los datos encesarios
+        procesa los datos
+        analiza los datos en terminos de exp y estudio 
+        propon medidas correctivas
+        implementa las medidas correctivas
+        

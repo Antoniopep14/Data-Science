@@ -1,0 +1,170 @@
+es un emulador de SO en una usb
+no permite guardar o modificar su contenido, solo el uso de los recursos entimepo real
+para crearlo con un SO Linux:
+    buscar la SIO del SO deseado
+    instalar aplicacion de crceacion de liveUSB ya sea por paquetes o normal
+    tener una USB con almenod 4bg de capacidad y formato FAT32
+    insertar memoria al PC
+    abrir aplicacion de liveUSB
+    y seleccionar la memoria
+    seleccionar el 100% de persistencia si esta la opcion, que es la memoria que tendra disponible para guardar archivos o apps
+    aceptar/ok y esperar
+    apagar PC sin remover PC para probar que sea boteable
+    enciende PC y presiona f2 o f12 para seleccionar los disp de aranque
+    selecciona la memoria usb y presiona enter para iniciar en Linux
+
+PARTICIONES
+Se dividen segun su sistema de archovos:
+Extendido para Linux: Ext4
+NTFS para PC
+HFS+ para no PC
+para particionar:
+    ten una live USB con linux y la app Gparted instalada
+    verificar si hay un SO instalado
+    usar el desfragmentador del sistema para liberar espacio en el disco
+    arranca el liveUSb y abre la app para particionar
+    selecciona el disco duro que queres particionar en la parte superior derecha de la ventana
+    da clic en la franja amarilla para seleccionar la cantidad a dividir
+    clic derecho y selecciona redimensionar/mover
+    usa la pestaña derecha para seleccionar el tamaño de la particion
+    nunca mover la flecha izquierda porque ahi se encuentran los datos almacenados y podrias perder informacion o hasta el SO
+    da aceptar
+    con un clic derecho sobre la particion elige la opcion formatear como
+    elige la opcion dependiendo del sistema de archivos que vas a usar
+    para finalizar dar clic en el boton de la paloma verde
+    apagar el liveUSb e intalar el So que necesites
+
+RESPALDOS
+En servidores es indispensable tener la garantía de acceso a la información, por ello es necesario
+hacer respaldos y tener redundancias, por medio de NAS, SAN y RAID.
+
+NAS (Almacenamiento conectado en red) : es un servidor que permite a las computadoras
+conectadas a una misma red,  almacenar y compartir archivos vía web. Es un proceso simple y 
+confiable para compartir datos. Se configura para dar acceso a las computadoras que lo requieran. 
+
+Sus ventajas son:
+ Si se usa TCP/IP soporta múltiples usuarios conectados al mismo tiempo.
+ Su precio disminuye si se tienen en masa.
+ Se puede administrar de forma remota.
+ Son de fácil manejo y mantenimiento.
+
+Sus desventajas son:
+ La transmisión de datos tiene menor rendimiento que una SAN, por lo que no se recomienda para 
+ almacenar bases de datos.
+ Es más lento porque comparte el tráfico de la red de las computadoras.
+
+SAN (Red local de almacenamiento): es una red externa que conecta dispositivos de almacenamiento 
+compartidos con servidores. 
+Sus ventajas son:
+Su capacidad puede ser expandida sin límite.
+Al compartir información con varías computadoras de la red, mantiene su rendimiento debido a 
+
+que el tráfico está separado de las computadoras.
+
+Tiene menor latencia y es más confiable que una NAS.
+Sus desventajas son:
+Su rendimiento está ligado al ancho de banda con el que se cuente.
+
+Es más costosa que una NAS
+
+RAID (Arreglo redundante de discos independientes):  provee una forma de almacenar información en 
+diferentes discos duros al mismo tiempo; a esto se le llama redundancia de almacenamiento.
+
+Los tipos más usados son
+RAID 0: Distribuye de igual forma la información almacenada entre dos o más discos duros con 
+el fin de mejorar la velocidad de acceso. No tiene redundancia.
+RAID 1: Duplica la información en dos o más discos duros para tener redundancia en caso de que 
+falle uno; a esto se le conoce como espejo. Aumenta la velocidad de acceso debido a que se leen 
+dos datos al mismo tiempo.
+RAID 10: Es la combinación de RAID 1 y 0, cuenta como mínimo con 4 discos debido a que se 
+crean dos espejos con la misma información.
+
+Sus ventajas son:
+Mejora el rendimiento
+Incrementa la tolerancia a fallas
+Es de mayor confiabilidad
+Permite recuperar información
+
+Sus desventajas son:
+Disminuye la capacidad de almacenamiento
+Aumenta carga de trabajo a los procesadores
+
+TIPOS DE RESPALDOS
+El “backup” o respaldo de un servidor, es un mecanismo de seguridad que consiste en copiar los datos almacenados 
+durante un periodo de tiempo, para garantizar que la información esté a salvo en caso de una catástrofe. 
+Así se asegura la operación virtual de una empresa u organización.
+
+completo:
+    se crea una copia del sistema entero, incluyendo instalaciones adicionales y archivos.
+    Generalmente se almacena en CD, DVD o discos duros.
+    Permite una recuperación total del sistema. 
+    Requiere mayor tiempo para realizar cada copia.
+    Sólo se requiere la última copia realizada
+
+Incremental:
+    Sólo se realiza la copia de los datos que han sido modificados después de la última operación
+    requiere de menor espacio de almacenamiento
+    las copias pueden realizarce mas a menudo
+    para realizar una restauracion total es necesario contar todas las copias
+        que se hayan realizado desde el primer respaldo
+
+Diferencial:
+    se agregan los datos que hayan cambiaido a la ultima copia realizada
+    cada copia ocupara mayor espacio que la anterior, pero menor espacio que la copia completa
+    para recuperar un sistema solo se requieren la primer y ultima copia
+
+CREACION DE UN RESPALDO:
+la forma mas facil es usando el admin de procesos de linux llamado cron
+que crea copias comprimidas de las partes del servidor que desees respaldar
+es un tipo completo de backup ya que copia todas las caras seleecionadas incluyendo archivos aun si no han sido modificados
+para hacerlo:
+    creamos una caroeta llamada backup en raiz:
+    mkdir /backup
+    crea una carpeta comprimida de la carpeta web www con el comando tar:
+    tar -czf /backup/web_backup- `date '+Y\m\d'`.tar.gz /var/www
+    crea unn archivo nuevo en el cron:
+    EDITOR=nano crontab -e 
+    agrega el sig texto seguido de la instruccion para crear el archivo comprimido:
+    0 2 * * * /bin/tar -czf /backup/web_backup- `date '+\Y\m\d'`.tar.gz /var/www
+    guarda el archivo y cierralo
+    con esto se creara una carpeta comprimida todos los dias a la misma hora
+    por ultimo copia los archivos comprimidos a un servidor de respaldo:
+    crea una llave de acceso ssh para el servidor de respaldo:
+    ssh-keygen
+    envia la llave ssh al servidor de backup:
+    scp /root/.ssh/id_rsa_backup.pub root@backuphost.org/home/backup/backup_key.pub
+    ingresa los datos de acceso al servidor de respaldo
+    crea la carpeta authorized_keys en el servidor de respaldo:
+    este crea la carpeta ssh y su ruta si no existe
+    ssh root@dominiobackup 'skdir -p /home/backup'.ssh
+    este brinda los permisos de sistema:
+    ssh root@dominiobackup 'chmod 700 /home/backup/.ssh'
+    este crea el archivo authorized_keys:
+    ssh root@backuphost.org 'touch /home/backup/.ssh/authorized_keys'
+    este concede permisos de edicion:
+    ssh root@backuphost.org ?chmod 600 / home/backup/.ssh/authorized_keys'
+    este crea la ruta de carpetas si no existe:
+    ssh root@backuphost.org 'mkdir -p /home/backup/backups'
+    mueve la llave a la carpeta que acabas de crear:
+    ssh root@backuphost.org 'cat /home/backup/backup_key.pub >> /home/backup/.ssh/authorized_keys´
+    copia el archivo comprimido al servidor de respaldo:
+    scp -i .ssh/id_rsa_backup /backup/web_backup-20160405.tar.gz root@backuphost.org:/home/backup/backups 
+    agrega la siguiente instruccion al cron como lo hicimos anteriormente:
+    0 2 * * * -czf /backup'web_backup-`date '+\Y\m\d'`.tar.gz /var/www;
+    scp -i .ssh/id_rsa_backup /backup/web_backup-20160405.tar.gz root@backuphost.org:/home/backup/backups
+    ctrl + x para guardar y cerrar
+    existen servicios instalables que ahcen todo esto
+
+VERIFICACION DE ARCHIVOS LOG
+registran la informacion de los eventos del SO que se estan ejecutando
+accede como root para tener permisos de administrador y entra al sig directorio:
+cd / var/log
+despliega los archivos existentes en él:
+ls
+usa el comando cat para mostrar el ccontenido de un archivo:
+cat boot.log **en este caso boot.log
+interpreta la lista de registros
+
+
+
+

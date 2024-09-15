@@ -1,0 +1,176 @@
+un servicio de correo electronico esta integrado por varios servicios:
+    -agente de transferencia de correo o MTA: se encarga de codificar el correo entrante y saliente
+    por medio del SMTP
+    -agente de entraga de correos o MDA: almacena el correo entrante en la carpeta del usuario receptor
+    conocida como buzon de entrada, en muchos servidores el MDA esta integrado al MTA
+    -mecanismo de acceso al correo: puede ser atraves de los siguientes protocolos
+        IMAP: protocolo de acceso a mensajes de internet
+        POP3: protocolo de oficina de correo
+para instalar y configurar el servicio es necesario tener la ip y dominio del servidor
+    asi como el nombre del host para el correo
+tambien debemos elimnar el servidor de correo senmail instalado como predeterminado con:
+yum remove sendmail
+
+agregamos el nombre del host para correo electronico editando el archivo host
+nano/ etc/hosts
+aqui agregamos 172.22.10.84(ip) mail.nombrehost.com
+
+cambiamnos el valor de SELINUX por disabled
+nano /etc/selinux/config
+este se debera de activar nuevamente al finalizar
+
+agregamos el repositorio de epel que incluye el cliente del correo electronico
+para el acceso de los usuarios, 
+wget con enlace a la version de la paqueteria y nombre del repositorio
+wget http://epel.mirror.net.in/epel/6/i386/epel-release- 6-8.noarch.rpm
+
+editamos el archivo epel table
+rpm -Uvh epel-release- 6-8.noarch.rpm
+para agregar la siguiente regla en la configuracion del firewall
+para permitir el trafico en el puerto 80
+firewall-cmd -- permanent -- add-port=80/tcp
+firewall-cmd -- reload
+
+el MTA que usaremos se llama post fix y se encuentra por defecto en muchas distribuciones
+de linux, y tambien usaremos dovecot como servicio de IMAP y POP
+ademas de utilizar SQUIRREL para permitir acceso y suo de servicios a los usuarios
+
+primero actualizamos lo paquets de instalacion: 
+yum update
+y agregamos excepciones de actualizacion a postfix en los paquetes base y update
+nano /etc/yum.repos.d/CentOS-Base.repo
+agregamos= exclude=postfix debajo de los paquetes
+guardamos y cerramos
+
+para comenzar la instalacion debemos de habilitar el repositorio centOS plus
+yum -- enablerepo=centosplus install postfix
+y autorizamos la descarga de paquetes faltantes
+
+despues instalamos dovecot y squirrel:
+yum install dovecot
+yum install squirrelmail -y
+ahora debemos de configurar cada uno de los servicios
+
+CONFIGURACION DEL SERVICIO SMTP
+primero abrimos: nano /etc/postfix/main.cf 
+descomentamos la linea 75 myhostname y agregamos = mail.nombrehost.com
+igual en la 83 mydomain = nombrehost.com (nombre del dominio)
+igual 99 myorigin solo se descomenta
+en la 116 cambiamos valor por inet_interfaces = 127.0.0.1
+119 inet_protocols valor = all
+164 la #comentamos #mydestination = $myhostname, localhost.$mydomain, localhost
+la 165 parecida a la 164 la descomentamos
+descomentamos 264 mynetworks y agregamos las ip permitidas por el mta = 0.0.0.0./28, 127.0.0.0/8
+por lo menos poner la ip locales
+descomentamos la 419 home_mailbox = Maildir/
+
+despues usamos el siguiente comando para aplicar cambios 
+systemctl restart postfix.service
+
+para probar el servicio mandaremos un correo de forma manual:
+primero creamos un usuario: useradd upostfix
+passwd upostfix
+y nos conectamos al servicio:
+telnet localhost smtp 
+
+agregamos el remitente
+mail from:<upostfix>
+agregamos destinatario
+rcpt to <upostfix>
+e ingresamos el mensaje
+data 
+354 End data with <CR><LF>.<CR><LF>
+bienvenido al correo de capacitate.
+y finalizamos con enter
+.
+enter
+
+despues cerramos con quit
+
+para confirmar el envio del mensaje ingresamos:
+ls /home/upostfix/Maildir/new/
+esto nos arroja la lista de rutas de correos recibidos
+despues para ver el contenido del correo:
+cat/home/upostfix/Maildir/new/rutadelarchivo
+
+CONFIGURACION DE SERVICIOS DE IMAP/POP
+es el complemento de cualquier MTA, por ello configuraremos el servicio dovecot
+para complementar el servicio SMTP que ofrece postfix
+para configurar dovecot abrimos:
+nano/etc/dovecot.conf
+descomentamos linea 20 protocols
+
+editamos
+nano/etc/dovecot/conf.d/10-mail.conf
+desomentamos la linea 24
+
+abrimos:
+nano/etc/dovecot/conf.d/10-auth.conf
+descomentamos linea 9
+agremaos a la linea 97 = plain login
+
+abrimos:
+nano/dovecot/conf.d/10-master.conf
+desocmentamos linea 83 user y agregamos = postfix
+lo mismo a la 84 group = postfix
+
+reiniciamos servicio:
+systemctl restart dovecot.service
+
+para comprobar el funcionamiento de dovecot abrimos la configuracion telnet con el servicio:
+telnet localhost pop3 
+
+y solicitamos acceso como usuario:
+user upostfix
+pass uposfix
+despues obtenemos el mensaje recibido con:
+retr 1
+y cerramos la comunicacion con quit
+
+dovecot sirve para consultar el buzon de un usuario con menos comandos
+
+CONFIGURACION DEL CLIENTE DE correo
+es la interfaz grafica que comunica al cliente con el servicio
+para configurar al servicio de squirrel usamos:
+cd /usr/share/squirrelmail/config/
+./conf.pl
+
+ingresamos opcion 1, 1 y escribimos: Mi organizacion
+usamos S y R para guaardar y salir al menu anterior
+usamos la opcion 2 para configurar el servidor, despues 1 para el dominio, despues 3, 2
+luego guardamos S y salimos Q 
+
+adicionalmente debemos crear un host virtual en apache para la instalacion de squirrel:
+nano /etc/httpd/conf/httpd.conf
+agregamos al final:
+alias /webmail/usr/share/squirrelmail
+<Directory 7usr/share/squirrelmail>
+    Options Indexes 
+    FollowSymLinks
+    Rewrite Engine On
+    AllowOverride All 
+    DirectoryIndex index.php
+    Order allow,deny 
+    Allow from all 
+</Directory>
+
+y reiniciamos el servicio de apache para aplicar los cambios
+systemctl restart httpd.service
+
+ahora probaremos el servicio completo de correo electronico:
+useradd usuario1
+passwd usuario1
+useradd usuario2
+passwd usuario2
+
+ahora abrimos el navegador e ingresamos la ip del servidor/webmail (webmail es el alias creado en la conf de squirrel)
+o el nombre de dominio.com/aliaswebmail
+accedemos con un usuario y mandamos correo al otro usuario
+despues cerramos sesion y accedemos con el otro usuario
+
+
+
+
+
+
+

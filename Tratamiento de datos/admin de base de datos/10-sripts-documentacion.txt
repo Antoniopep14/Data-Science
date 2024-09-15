@@ -1,0 +1,16 @@
+Script: conj de instrucciones que sirven para comunicarte al motor de la db
+comentarios: se hacen con /*[comentario]*/ o --[comentario]
+documentacion de objetos en scripts: es importante reportar cambios usando comentarios
+    por ejem: antes de cada sentencia "CREATE" agregar una descripcion
+    --Descripción: Regresa el total de ventas de determinado mes
+docuemntacion general de db: agregar encabezados en script que contengan:
+    nombre de la db
+    version del motor sql en que corre
+    nombre de quien la edita
+    fecha de edicion
+    enlistar objetos creados
+    enlistar objetos modificados sin necesidad de detallar(eso se hace en el script de cada objeto)
+
+
+
+

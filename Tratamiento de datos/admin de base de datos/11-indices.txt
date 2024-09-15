@@ -1,0 +1,13 @@
+los tipos de indices son:
+    -clustered o agrupado: solo puede haber uno por tabla si no se elige uno usualmente sera la llave primaria
+    de preferencia debemos asignar el que mas usamos
+    -nonclustered o no agrupado: contiene un tabla separada que contiene los pnuteros de los indices indicados
+    Es parecido a la tabla de contenidos de un libro
+    tiene un limite entre 249-999 por cada tabla de acuerdo a la version de sql
+para crearlos se usa:
+
+CREATE CLUSTERED INDEX NmobreRelacionadoAlIndice_Indice ON
+dbo.Directorio(Apellidos);
+
+CREATE NONCLUSTERED INDEX NmobreRelacionadoAlIndice_Indice ON
+dbo.Directorio(Apellidos);

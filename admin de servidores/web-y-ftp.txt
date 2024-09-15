@@ -1,0 +1,78 @@
+el comando para instalar la librerias de cobfiguracion de servicio 
+primero debemos comprobarlas con:
+sudo yum groupinfo
+luego las instalamos:
+sudo yum groupinstall "Servidor web"
+luego instalamos las librerias de desarrollo de servicio:
+sudo yum httpd-devel
+luego cargamos el servicio y lo agregamos a la lista de excepciones del firewall
+systemctl reload httpd.service
+sudo firewall-cmd --zone=public --add-port=88/tcp --permanent
+
+ALTA DE UN SITIO web
+primero debemos adquirir una ip estatica con algun distribuidor
+seguridad especial: selinux
+    estricta: activada por defecto bloquea los puertos vulnerables a una intrusion
+    moderada: el firewall decide que puertos abrir
+    desactivada
+para modificar esos valores:
+cd/etc/selinux
+cambiamos persmisos para poder editar config:
+sudo chmod 777 config
+modificamos en consola la opcion de SELINUX=permissive
+y presionamos el comando para guardar, en fichero guardamos con config
+quitamos permisos a config:
+sudo chmod 755 config
+recargamos el servicio de internet y vamos a la carpeta...:
+service httpd reload
+cd/var/www
+ll
+cambiamos permisos
+sudo chmod 777 html
+ll
+cd html
+creamos archivo de prueba dentro de la carpeta html:
+touch hola.html
+ingresamos una frase:
+echo #Hola mundo" >> hola.html
+despues de eso ya podemos verificar la pagina ingresando la sig direccion en el navegador:
+localhost/hola.html
+
+INSTALACION Y CONFIGURACION DE FTP:
+protocolo para intercambio de archivos y subirlos a un Servidor
+funciona con la instruccion get
+primero verificamos si el servicio ya esta instalado con:
+ftp
+si aparece el front ftp > significa que esta instalado
+y salimos con exit, en caso contrario lo instalamos con:
+sudo yum _install ftp
+y revisamos que este habilitado en el firewall de linux
+
+GESTION DE ARCHIVOS FTP
+Facilita la gestion de archivos mediante los comando agregar y obtener
+abrimos el gestor de ftp en la interfaz grafica de linux
+a ingresamos dir ip, usuario, pass, puerto: 172.22.10.141 admin **** 21
+se selecciona el archivo que se va a subir al servidor
+en la seccion de la derecha se selecciona donde se va a subir el archivo
+se arrastra o se selecciona la opcion subir, con spr se eliminan
+
+INSTALACION DE SERVICIOS WEB:
+un servicio web es un programa que recibe consultas de informacion mediante peticiones
+para instalarlos, primero debemos identificar que servicios estan activos:
+chkconfig --list
+instalamos el servicio de internet en caso de que el servicio http no este disponible en la lista:
+sudo yum nistall httpd
+habilitamos le servicio con alguno de los sig comandos:
+chkconfig httpd on 
+systemctl enable httpd.service
+*se usa la opcion que se muestra en el nivel de arranque activo
+ahora iniciamos el servicio: (puede variar dependiendo las versiones de linux)
+service httpd start
+systemctl start httpd.service
+instalamos nmap y lo usamos para ver si el servicio esta a la espera de una peticion:
+nmap + nombre de red de la maquina + puerto asociado
+nmap localhost 80 
+abrimos navegador e ingresamos:
+127.0.0.1 
+lo cual nos debe mostrar una pagina de verificaion que indica que el servicio funciona correctamente
+

@@ -1,0 +1,179 @@
+INSTALACION DE PAQUETES DE SOFWARE:
+    YUM: admin para instalar, actualizar remover buscar paquetes de software en SO
+    su -: nos cambia a root desous se pone el pass 
+    yum update: actualiza el software 
+    yum -y update: actualiza aceptando todas las confirmaciones de manera automatica
+    yum update + nombre de paquete: solo actualiza ese paquete
+
+REMOVER PAQUETES DE SOFTWARE:
+    yum remove + nombre de paquete
+
+INSTALAR PAQUETE DE SOFTWARE:
+    primero obtener el repositorio del software a instalar
+    escogiendo la carpeta donde se descargara el paquete
+        cd /tmp
+    ejecuta: wget
+    y pon el enlace: http://download.libreoffice_etc.com
+    para ver archovos de la carpeta donde te encuentras:
+        ls 
+    para descomprimir el archivo en la misma carpeta:
+        tar -xvf nombre de archivo
+    vuelve a ver los archivos descomprimidos: ls
+    para instalar ve al direcctorio descomprimido: cd /tmp
+        cd nombre del directorio 
+        e instala con: yum localinstall *.rpm
+    para obtener informacion de algun software:
+        yum info nombre de programa
+    
+ARRANQUE Y APAGADO DE SERVIDORES:
+se refiere al inicio, reinicio y detener un servidor
+para gestionar estos servicios debes ejecutar: systemctl
+cada uno de los servicios que muestra puede ser detenido o reiniciado
+para salir usa: q
+para ver el estado de un servicio, por ejemplo el del firewall:
+    systemctl status firewalld.service
+para detenerlo: systemctl stop firewalld.service
+para activarlo de nuevo: systemctl start firewalld.service
+para reiniciarlo: systemctl restart firewalld.service
+
+NIVELES DE EJECUCION
+En linux existen 7 niveles de ejecucion:
+    0.- Detener o apagar sistema
+    1.- Modo monousuario: generalmente usado para mantenimiento del sistema
+    2.- Modo multiusuario: Sin soporte de red
+    3.- Modo multiusuario completo: Con servicios de red
+    4.- modo personalizado: se usa para un inicio personalizado
+    5.- Modo multiusuario completo con interfaz grafica
+    6.- Modo de reinicio
+para ejecutar alguno de los niveles se usa el comando:
+    init numeroNivel (1)
+este cambio es momentaneo, al reiniciar el servidor comenzara con su nivel predefinido
+para ver nivel actual se usa: who -r
+para cambiarlo: cd /etc 
+    ls (para ver archivos)
+    nano inittab (ingresar al directorio nano inittab)
+    los target son: multi-user.target y graphical.target
+    ctrl + X para salir del editor de texto nano
+una vez visto el nivel del target el codigo a usar en la terminal es:
+    systemctl set-default multi-user.target
+el default es 3
+para ejecutar los cambios: reboot
+nunca cambiar a 0 o 6 porque entrara en un bucle infinito
+
+RED 
+Para verificar los datos y estado de una red se usa:
+    ip addr list 
+
+HABILITAR Y DESABILITAR PUERTO A TRAVES DEL FIREWALL 
+En linux existen 9 zonas que limitan o rechazan las conexiones
+Block: rechaza cualquier conexion emitiendo un mensaje de aviso
+Drop: rechaza cualquier conexion sin mensaje de aviso
+DMZ: zona desmilitarizada, solo se aceptan conexiones autorizadas por el admin
+External: Acceden conexiones con enmascaramiento hablitado 
+Internal: permite coexiones de la red local 
+Home: permite conexiones del hogar
+Work: permite conexiones del trabajo
+Public: las redes publicas pueden acceder aunque las conexciones no sean de confianza
+Trusted: toda conexion es aceptada
+
+Al activar el firewall la zona predeterminada es la publica
+para cambiarla usamos:
+    firewall-cmd -set-default-zona=nombrezona
+
+En linux se tienen 65,535 puertos configurados asi:
+    0-1024: puertos bien conocidos con protocolos https, ftp, ssh telnet, etc
+    1025-49151: puerto registrado, son de aplicacion libre
+    49152-65535: puertos privados, son de uso temporal para conectar una maquina con servidor
+
+Existen 2 protocolos de transferencia de datos TCP y UDP, el mas usado es el TCP 
+Para habilitar un puerto en una zona deseada usamos:
+    firewall-cmd --zone=<zona> --add-port=<numeropuerto>/<protocol> --permanent
+Para inhabilitar un puerto en una zona deseada usamos:
+    firewall-cmd --zone=<zona> --remove-port=<numeropuerto>/<protocol> --permanent
+De esta manera podemos restringir conexiones no deseadas por el numero de puerto
+Para ver que puertos estan siendo usados necesitamos ejecutar:
+    netstats -tuna
+
+EXTRA:
+
+cd para acceder a directorios
+yum info nombredesofware (para ver informacion sobre él)
+para ejecutar un programa solo basta con escribir su nombre
+
+yum comando para instalar, remover, listar, buscar, actualizar
+
+root = su -
+yum update (actualiza todo)
+yum -y update (acepta todo)
+yum update nombrepaquete (actualiza un paquete)
+yum remove nombrepaquete
+
+para instalar un paquete primero necesitamos el repositorio de archivos
+usar root y entrar al directorio: cd /tmp
+    wget http://dowload.office... (enlace de descarga de repositorio)
+    ls (para ver archivos y verificar descarga)
+    en caso de ser necesario descomprimir el archivo usar:
+        tar -xvf office_5.5.0_linuxx86.tar.gz(nombre archivo)
+        entrar al nuevo directorio
+        yum localinstall *.rpm (intalar todos los archivos que terminen en rpm)
+
+systemctl para ver cada uno de los servicios en la MV
+q (te saca de cualquier menu al que hayas accedido)
+systemctl status nombreservicio.service (muestra el estado del servicio)
+systemctl stop nombreservicio.service (detiene el servicio)
+systemctl start nombreservicio.service (inicia el servicio)
+systemctl restart nombreservicio.service (reinicia el servicio)
+
+GRUB: es el archivo con las instrucciones que el SO interpreta para iniciar
+    contiene: lista con el orden de las particiones donde se encuentra
+            idioma de ARRANQUE
+            config del selinux
+    no requiere contraseña para ser editado por lo que puede
+    ser vulnerable a ataques
+para restringir el acceso al grub:
+    respaldar archivo: sudo cp /boot/grub2/grub.cfg.old 
+        sudo cp /etc/grup.d/10_linux.old 
+
+    generamos contraseña encriptada:
+        grup 2 -mkpasswd - pbkdf2(copiamos con ctrl c)
+
+    agregamos "10_linux" al final del archivo:
+        cat <<  E0F
+        set siperusers ="nombreusuario"
+        Password_pbkdf2 nombreusuario
+        pegamos contraseña
+
+    generamos un nuevo archivo grub.cfg:
+        sudo grub2-mkconfig --output=boot/grub2/grub.cfg
+    reiniciamos y presionamos e en la seleccion de sistema
+    para entrar al editor del grub
+
+CRON: usado por el SO para programar tareas
+    "nobody noaccess" no permite su uso a nadie(en el archivo de config)
+    o bien podrias solo listar las personas que no tienen acceso a CRON
+    o listar a las que si tienen acceso
+    para crear este ultimo:
+        comprobamos que cron.deny tiene el comando nobody access:
+            sudo nano /etc/cron.deny
+        editamos cron.allow donde agregaremos los nombres permitidos:
+            sudo nano /etc/cron.deny
+            ctrl o y ctrl x para guardar y cerrar
+        reiniciamos cron:
+            sudo service crond restart
+
+MONITOREO DE SERVIDOR:
+    para ello sera necesario comprobar y activar la libreria(pascct)
+    iniciar el servicio:
+        sudo systemctl start pascct.service
+    
+    comandos de la libreria:
+        sudo ac: muestra las horas de cada inicio de sesion de usuarios
+        sudo ac -d: muestra el uso de la pc por dias
+        sudo ac -p: tiempo de sesiones ingresando nombre del usuario
+        sudo ac -d nombreusuario: para hacerlo de forma particular
+        sudo sa: muestra resumen de los comandos de los programas que ejecutan los usuarios
+        sudo sa -u: para ver el uso individual por usuarios
+        sudo sa -m: para ver el numero total de procesos
+        sudo sa -c: para el mas alto porcentaje de uso de los usuarios
+        sudo lastcomm nombreusuario: se usa para ver los ultimos
+            comandos de los programas ejecutados

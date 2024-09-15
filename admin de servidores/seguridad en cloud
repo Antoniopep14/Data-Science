@@ -1,0 +1,32 @@
+revisar actualizaciones en linux:
+    sudo yum check –update
+
+actualizar pendientes:
+    sudo yum update
+
+protocolos mas destacados:
+• ISOS 20000,27002, 27018, los cuales se enfocan en la gestión de los procesos
+          de TI
+• CMMI, regula los procesos operacionales que se vinculan directamente con el
+          cliente.
+• ITIL, se enfoca en organizar la infraestructura de TI, obedeciendo normas de 
+          calidad. 
+• COBIT, desarrolla una metodología para regular la gobernabilidad de todo el 
+          sector TI, es decir, la coordinación de todas las demás
+
+GESTION DE SERVICIOS
+ver lista de sevicios:
+    systemctl
+q para salir
+
+ver estado de servicio:
+    systemctl status nombreservicio.service
+
+detener servicio:
+    systemctl stop nombreservicio.service
+
+activar servicio:
+    systemctl start nombreservicio.service
+
+reiniciar servicio:
+    systemctl restart nombreservicio.service

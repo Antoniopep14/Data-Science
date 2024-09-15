@@ -1,0 +1,21 @@
+-Un data mart es una versión pequeña de un DW
+-Las diferencias entre uno y otro son:
+data mart:
+    -almacena info de un area de la organizacion especifica
+    -concentra en resumenes de datos totalizados
+    -creacionn mas simple ya que tiene menos relaciones y estan enfocados a un solo tema
+    -menos costoso
+    -entrega de manera optima la info para el soporte de desiciones de negocio
+
+DW:
+    -almacena info relacionada con todo el sistema
+    -almacena grandes cantidades de datos provenientes de una db OLTP
+    -creacion complicada ya que contempla todos los datos del sistema
+    -mas costoso por la gran cantidad de datos que maneja
+    -optimiza la optencion de datos, integrando y optimizando los datos fuente
+
+tipos de data marts:
+1.- dependiente: la info es extraida inicialmente de una db OLTP, para poblar el datawarehouse
+2.- independiente: la info es extraida directamente de una db OLTP y llevada al data mart, sin depender de un DW
+    conveniente para empresas pequeñas
+3.- Hibrido: la info necesaria para el data mart es tomada de diferentes fuentes, tanto de las db OLTP con el DW, incluso hojas de excel

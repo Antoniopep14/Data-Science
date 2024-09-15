@@ -1,0 +1,74 @@
+las consultas se dividen en:
+-DISTINTC: elimina los regtistro duplicados de las columnas al usar select
+    se debe usar solo cuando sea necesario porque consume mucho procesamiento ya que compara todos los registros
+    SELECT DISTINTC [Order Details].Product ID, Products.ProductName
+    FROM [Order Details]
+    INNER JOIN Orders ON [Order Details].OrderID = Orders.OrderID
+    INNER JOIN Products ON [Order Details].ProductID = Products.ProductID
+    WHERE OrderDate >= '04-07-1996'
+    AND OrderDate >= '05-07-1996'
+    ORDER BY [Order Details].ProductID
+    
+-Sub-consultas: Se puede agregar la sintaxis de otra consulta a la instruccion complementaria where para comparar los resultados que arroje
+    SELECT DISTINTC Campo1, Campo2 FROM TablaA
+    INNER JOIN TablaB ON LlavePrimaria = LlaveForanea
+    WHERE 'Valor' IN (SELECT Country FROM Suppliers
+                      WHERE Products.SupplierID = Suppliers.SupplierID)
+                      *si no hay resultados que se igualen a la consulta ingresada
+                      no se arrojara ningun dato
+ **EJEMPLO: obtener productos cuya letra empicen con L devarios proveedores
+    SELECT DISTINTC [Order Details].ProductID, Products.ProductsName FROM [Order Details]
+    INNER JOIN Products ON [Order Details].ProductID = Products.Product
+    WHERE 'USA' IN (SELECT Country FROM Suppliers
+                    WHERE Products.SupplierID = Suppliers.SupplierID FROM Suppliers)
+    AND ProductName LIKE 'L%'
+
+-INTO: Es complementaria de select y crea una tabla en la base de datos y le agrega los resultados de la busqueda realizada
+       La tabla tendra los campos del select pero no estara referencaida a ninguna otra tabla
+
+       SELECT Campo1, Campo2, Campo3
+       INTO NuevaTabla 
+       FROM dbo Categories
+       *INNER JOIN si la info se encuentra en mas de 2 tablas
+
+*si queremos verificar si una tablaexiste podemos usar
+OBJECT_ID: Si el resultado es NOT NULL significa que la tabla existe
+    y se puede eliminar con DROP TABLE 
+    **EJEMPLO
+    IF OBJECT_ID ('CustomerCopy') IS NOT NULL
+    BEGIN
+        DROP TABLE CustomerCopy
+    END
+*despues de eliminar la tabla ya podriamos crear la que queremos
+    SELECT CustomerID, CustomerName
+    INTO CustomerCopy
+    FROM Customers
+
+*Para ver los datos de una tabla usamos:
+    SELECT * FROM CustomerCopy
+
+-GROUP BY: es complementaria de select y sirve para agrupar un conjunto de registros en una consulta
+    es importante que el campo por el que vas a agrupar exista entre los campos solicitados en select, de no ser asi nos dara error
+    SELECT Campo1, Campo3 from tabla1
+    INNER JOIN tabla2 on tabla1.Campo1 = tabla4.campo6
+    GROUP BY campo1 Order BY campo3
+    **EJEMPLO: Queremos saber el total de ventas por categoria de producto y region, realizadas en la tienda hasta el momento
+    generar este select implica la relacion de muchas tablas, asi que usaremos inner join
+
+    SELECT RegionDescription, CategoryName, SUM ([Order Details].Unit Price * [Order Details].Quantity) AS total
+    FROM Region, Territories, EmployeeTerritories, Employees Orders, [Order Details], Products, Categories
+    WHERE Region.RegionID = Territories.RegionID 
+    AND Territories.TerritoryID = EmployeeTerritories.TerritoryID
+    AND EmployeeTerritories.EmployeeID = Employees.EmployeeID
+    AND Employees.EmployeeID = Orders.EmployeeID
+    AND Orders.OrderID = [Order Details].OrderID
+    AND [Order Details].ProductID = Products.ProductID
+    AND Products.CategoryID = Categories.CategoryID
+    GROUP BY RegionDescription, CategoryName ORDER BY RegionDescription
+
+    *donde el primer registro despues del and y where es la PK
+    al separar la sentencia con AND nos aseguramos de solo agregar los registros que cumplan con la sentencia especifica
+AS: alias que asignamos en consultas
+ORDER BY: es recomendable usarla despues de obtener la tabla de la consulta por el procesamiento
+IN, NOT IN: es mejor usar in que not in
+LIKE: compara caracteres seleccionados en toda la tabla

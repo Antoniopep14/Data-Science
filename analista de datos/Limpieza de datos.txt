@@ -1,0 +1,59 @@
+para exportar datos de una hoja de calculo:
+    menu-archivo-guardar como-extension csv-guardar
+
+instalar herrramientas de analisis en excel:
+    opciones generales-complementos-ir-marcar herramientas de analisis y solver-aceptar
+
+Para  ayudarte  con  la  limpieza  de  datos  existen
+softwares que pueden depurar, organizar y transformar  datos  a  diferentes  formatos.
+
+Al momento de filtrar datos es importante revisar el formato de los datos
+    ya que las peronas que los capturan no tienen una homologacion estructura
+    para una fecha por ejemplo pueden haber varios formatos en una misma db
+    openrefire es un programa de limpieza de datos que nos puede ayudar a esta tarea
+en la interfaz de openrefine, debemos seleccionar en la pertaña del nombre de la columna
+facet-text facet, y en la interfaz de la izquierda vemos que nombres son parecidos
+copiamos el que tenga mas registros y se lo pegamos a los que se parecen para que se homologuen
+
+LIMPIEZA DE DATOS NO ESTRUCTURADOS
+su principal funcion es eliminar info basura, registros repetidos y vacios
+para basura usamos column, text filter, flitrar caracter comun en info innecesaria
+marcar con estrella los registros a conservar, despues column en (all), face y face by star
+luego en row y delete matching row
+para los repetidos, column, face, text face, count, column edit cell, blank down
+para espacios en blanco, column, face, text face, escoge la opcion black casi al final de la interfaz a la izquierda
+    all, edit rows, remove all matching rows
+
+ventajas del software de limpieza: historial de movimientos
+buscardor editable por columna, junta categorias en grupos y trabaja con lenguaje de programacion avanzado
+
+La limpieza de datos ocupa "expresiones regulares" que son usadas en el leguaje de programacion para filtrar resultados mas precisos
+las expresiones regulares estan compuestas de: metacaracteres y literales
+metacaracteres: son operadores que tienen un significado diferente al habitual
+literales: Son los caracteres que estas buscando
+(p|t)ala : buscaria cualquier palabra con pala o tala
+ | ayuda a elegir cualquiera de las opciones dadas
+ .ama
+ . puede reemplazar a cualquier caracter
+ + toma el valor de una o mas ocurrencias: am+a
+puede dar ama, amma, ammma
+ * toma el valor de 0 o mas ocurrencias
+  ? toma el valor de 0 o una ocurrencia de un caracter o una expresion
+ema? : tem, ema, etc pero no emaa ya que tinene mas de una ocurrencia
+ {}se usan para indicar un numero exacto de ocurrencias
+a{2}ma: aama
+am{2,4}a: amma, ammma, ammmma
+[] indica un conjunto de caracters permitidos
+
+PROGRAMACION DE EXPRESIONES REGULARES (reg-ex)
+requerimientos para reg-ex en python: archivo de texto a limpiar
+    libreria re (import re) para hacer uso de expresiones regulares
+    
+LIMPIEZA DE DATOS
+formato, espacios en blanco, espacios ausentes, inconsistencia en los datos
+reglas: realizar reespaldo antes de limpiar datos, evitar , al ingresar datos
+    revisar formato de los campos numericos y de fecha, excluir registros problematicos pero no eliminarlos
+
+
+
+
