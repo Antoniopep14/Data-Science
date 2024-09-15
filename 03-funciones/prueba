@@ -1,0 +1,24 @@
+def no_space(texto):
+    sin_espacio = ""
+    for char in texto:
+        if char != " ":
+            sin_espacio += char
+    return (sin_espacio)
+
+
+def alreves(texto):
+    texto_volteado = ""
+    for char in texto:
+        texto_volteado = char + texto_volteado
+    return (texto_volteado)
+
+
+def es_palindromo(texto):
+    texto = no_space(texto)
+    final_volteado = alreves(texto)
+    return texto.lower() == final_volteado.lower()
+
+
+print(es_palindromo("abba"))
+print(es_palindromo("Amo la paloma"))
+print("Altair", es_palindromo("Altair"))
