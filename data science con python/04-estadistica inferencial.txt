@@ -1,0 +1,36 @@
+Esta se refiere a metodos que utiliza la teoria de probabilidad y distribuciones en particular
+para predecir alores de poblacion basados en valores de muestras
+
+DISTRIBUCION
+es una funcion que muestra los posibles valores para una variable y con que frecuencia ocurren
+Algunos ejemplos son: la distribucion normal, t de student, binomial, uniforme Y exponencial
+
+DISTRIBUCION NORMAL
+es la mas comun, el termino estadistico es distribucion Gaussiana o tambien llamada curva de campana
+es simetrica y su media, mediana y moda son iguales
+
+Toda distribucion puede ser estandarizada
+De manera que podemos centrar la curva de distribucion usando la formula de destribucion estandar
+
+TEOREMA DE LIMITE CENTRAL
+propone que no importa la distribucion de la poblacion ya se lineal, exponencial, etc 
+las distribucion de las muestras se aproxima a un valor nommal
+nos permite realizar pruebas, resolver problemas y hacer referencias
+#utilizando la distribucion normal, incluso cuando la poblacion no esta desitribida normalmente
+
+ERROR ESTANDAR 
+es la desviacion estandar de la distribucion formada por las medias muestrales
+muestra que tanto te aproximaste a la verdadera media
+el error estandar disminuye en la medida que el tamaño de la muestra aumenta
+
+ESTIMACIONES Y ERRORES
+estimaciones puntutales y de intervalos de confianza
+una estimacion puntual es un valor unico mientras que la otra es un intervalo
+La estimacion puntual esta exactamente en medio de los intervalos de confianza
+
+
+
+
+
+
+

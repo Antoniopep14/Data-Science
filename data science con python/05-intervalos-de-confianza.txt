@@ -1,0 +1,19 @@
+Un intervalo de confianza es el rango desntro del cual se espera que este el parametro de poblacion
+-Podemos intentar calcular el intervalo de confianza en dos maneras
+cuando la varianza poblacional es conocida o desconocida
+-usualmente nunca trabajaremos con toda la poblacion, por lo que tendremos que usar datos muestrales
+para con una varianza poblacional desconocida obtener resultados cercanos
+-Para una media de poblacion con una varianza conocida ver archivo leccion intervalo de confianza
+donde z o valor critico es la variable estandarizada
+alfa sera el restante del nivel de confianza(de 95% es 5%)
+-los niveles de confianza comunes son del 90, 95 y 99 por ciento
+
+DISTRIBUCION T DE STUDENT
+-Es parecida a la distribucion normal pero con colas mas largas
+-se calcula usando grados de libertad
+-su tabla de grados t se utiliza cuando hay menos de 50, para mayores es emjor usar la de tabla z
+ que vimos anteriormente en el intervalo de confianza
+-tambien cuando se conoce la variacion estadistica poblacional usaremos la z
+si se deconoce usaremos la T
+
+

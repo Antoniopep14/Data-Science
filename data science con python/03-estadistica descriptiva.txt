@@ -1,0 +1,96 @@
+MEDIDAS DE TENDENCIA CENTRAL
+MEDIA
+la media se denota con la M (u) para una poblacion y una X con barra arriba para una muestra
+Es la mas commun de las 3 medidas de tendencia, pero tambien es la mas afectada por valores atipicos
+por lo que la media no es suficiente oara sacar conclusiones definitivas
+MEDIANA 
+es el numero intermedio en nuestro conjunto de datos
+se saca con (n+1/2) donde n es el numero de observaciones y la mediana es esa observacion ordenada de menor a mayor
+si tenemos un 5.5 por ejemplo, la mediana seria el punto intermedio entre las posiciones 5 y 6
+MODA
+es el valor con mayor frecuencia
+si no hay una variable repetida se dice que no hay moda y por lo general 2 o 3 modas son aceptables
+
+MEDIDAS DE ASIMETRIA (la mas importante es el cesgo)
+CESGO
+la herramienta mas utilizada para medir asimetria es el sesgo
+El sesgo indica si las observaciones en un conjunto de datos se concentran en un lado
+*ver leccion de sesgo para entender lo sig
+la direccion del sesgo depende de hacia que lado se inclina su cola
+Cuando tenemos un sesgo correcto la media es mayor que la e¿mediana y la moda es la que tienen la representacion visual mas alta
+cuando la media, mediana y moda son iguales se dice que el cesgo es 0 o nulo, comunmente se dice qeu la distribucion es simetrica
+si la media es menor que la mediana se dice que el cesgo es negativo(la cola esta mas arriba)
+se dice que es cesgo a la izquierda o cesgo a la derecha cuando los valores atipicos(el punto mas bajo) esta de ese lado
+El cesgo es importante porque dice mucho sobre donde estan ubicados los datos
+El cesgo nos dice de que lado la cola es mas larga
+La media, mediana y moda en conjunto ofrecen una mejor comprension de los datos
+
+MEDIDAS DE VARIABILIDAD (tambien hay rango, rango intercuartil y deviacion media)
+Es importante recordar que en estadistica las formulas para la poblacion y muestras son difenrentes
+
+VARIANZA
+mide la dispersion de un conjunto de datos con respecto a su media 
+*ver leccion varianza
+para la varianza perimero calculamos la media, luego sumamos la diferencia al cuadrado de cada muestra - la media, y dividimos todo entre el numero de muestras - 1
+para el caso de la poblacion, solo se divide entre el tamaño de la muestra sin -1
+Si bien la varianza es una medida comun en la dispesion de datos, en la mayoria de los casos obtendras una cifra muy alta porque est aelevado al cuadrado 
+
+DESVIACION ESTANDAR
+al sacar la raiz cuadrada de una varianza se obtiene la desviacion estantar
+por lo que tienen la misma formula para muestra y poblacion con la diferencia de que se les saca la raiz al final
+
+COEFICIENTE DE VARIACION o desviacion tipica relativa
+es la medida mas commun de variabilidad para un conjunto de datos
+Este se obtine de la desviacion estandar/ la media
+por lo que viene de la misma formula de varianza para poblacion o muestras
+*ver clase medidas de variabilidad
+
+
+MEDIDAS DE RELACION ENTRE VARIABLES
+COVARIANZA
+a diferencia de la varianza la covarianza puede ser positiva o negativa
+tambien hay formulas difenrentes para muestra y poblacion
+*clase covarianza
+su formula es la sumatoria de(el producto de (muestra 1 - muestra 2))*(media1-media2)) todos sobre (el tamaño de la muestra-poblacion *-1 para el caso de muestras)
+si el resultado es:
+>0 las 2 variables se mueven juntas
+<0, las dos variables se mueven es direcciones opuestas
+0, las dos variables son independientes
+el problema de la covarianza es que puede ser muy muy pequeño o grande
+COEFICIENTE DE CORRELACION LINEAL
+La correclacion ajusta la covarianza, de modo que la relacion entre las 2 variables se vuelva facil e intuitiva de interpretar
+*clase coeficiente de correlacion 
+su formula es covarianza/(el producto de la desviacion estandar de las 2 variables)
+este coeficiente siempre es -1 <= coeficiente <= 1
+la correlacion no implica causalidad, es decir una variable no depende ni es afectada por la otra, se dice que es una relacino asimetrica
+
+EJEMPLO PRACTICO
+*ejemplo estadistica descriptiva
+una forma de saber si una variable es numerica o categorica es interpretando su media
+si la media nos da info de valor quiere decir que es numerica, sino categorica
+
+por ejemplo:
+    -la fila ID es categorica, con tipo de medicion cualitativo nominal
+    -la edad tiene un nivel de medicion cuantitativo radio porque tiene un punto 0 real y puede ser discreta o continua
+    -intervalo puede ser continua o discreta sin embargo ahora es ordinal en vez de razon
+    -precio puede ser dicreto o continuo, con nivel de medicion razon 
+    -genero es de tipo categorico, con medicion nominal
+    -estado es categorico como id, con medicion nominal
+ahora veamos cual es mas propenso a comprar, para lo que hicimos una tabla(circular por el tipo de dato) del genero
+para estado podemos usar barras o circular, pero preferimos el de bareto porque proporciona info adicional
+para edad usamos una distribucion de frecuencias creando un histograma con una longitud de 1 e intervalos en edad
+como la distribucion es cesgada a la derecha, podemos declarar que los jovenes compran mas propiedades
+
+Nuestro conjunto de datos es una muestra, ya que son potenciales clientes que ya compraron
+eso nos sirve para saber la formula para calcular la varianza y desviacion estandar
+Por ultimo hacemos un grafico de dispersion para relacionar la edad con el precio
+lo cual nos mmuestra datos dispersos, asi que calculamos la covarianza para confirmar que no son afectados entre si
+el coeficiente de correlacion obtenido es de -0.17, lo cual es muy bajo
+una practica comun es desechar las correlaciones menores a 0.2
+Esto nos dice que el gasto inmobiliario no se relaciona con la edad
+
+para relacionar el precio y tammaño ver *tarea estadistica descriptiva
+
+
+
+

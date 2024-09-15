@@ -1,0 +1,18 @@
+DATOS: tradicional, macrodatos
+CIENCIA DE DATOS: Inteligencia de negocios, métodos tradicionales y aprendizaje automatico
+MATLAB: Es ideal para trabajar con funciones matematicas o manupilaciones de matrices, pero es de paga
+MACRODATOS: son trabados usualmente con java o scala
+VISUALIZADORES DE IN: los mas usados son excel, power BI, sas, Qlik
+INGENIERO DE DATOS: pocesa datos para que esten listos para su analisis
+ANALISTA DE IN: realiza analisis y reportes de datos historicos
+DESARROLLADOR DE IN: realiza analisis diseñados para la empresa
+CIENTIFICO DE DATOS: emplea metodos estadisticos tradicionales o tecnicas no convencionales
+de aprendizaje automatico para hacer predicciones
+Un analisis FODA se basa en un analisis cualitativo y no entra en la IN pero si ayuda a la toma de decisiones
+
+
+
+
+
+
+

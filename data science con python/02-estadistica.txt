@@ -1,0 +1,70 @@
+N = poblacion = parametros = recopilacion de todos los articulos de interes
+n = muestra = estadisticas = subconjunto de la poblacion
+Una muestra es mas facil de obtener que toda la poblacion y debe tener:
+aletoriedad y representatividad
+TIPOS DE DATOS: 
+-categoricos: representan grupos o categorias(marcas o respuestas de si o no)
+-numericos:discretos(finitos) y continuos(infinitos como tu peso, area, distancia, tiempo)
+
+NIVELES DE MEDICION: pueden ser cuantitativos(intervalos y razones) y cualitativos(nominal y ordinal)
+
+GRAFICOS Y TABLAS: tabla de distribucion de frecuencia(pueden ser cruzadas), grafico de barras(agrupadas, de dispersion), 
+grafico circular y diagrama de pareto(donde la frecuencua acumulada es la suma de las frecuencias relativas)
+
+"""ESTADISTICA DESCRIPTIVA"""
+
+MEDIA: Es el promedio del conjunto de datos, en excel se calcula con =promedio()
+MEDIANA: es el punto medio del conjunto de datos ordenado, =median(), N+1/2
+MODA: Es el valor que courre con mas frecuencia, =moda.uno() da una moda, =moda.varios() da diversas modas
+SESGO: es una medida de asimetría que indica si las
+observaciones en un conjunto de datos se concentran en un lado, =coeficiente.asimetria()
+VARIANZA Y DESVIACION ESTANDAR: La varianza y la desviación estándar miden la dispersión de un
+conjunto de puntos de datos en torno a su valor medio.
+=var.p() varianza poblacional, =desvet() desviacion estandar muestral, =desvest.p() desviacion estandar poblacional
+
+COVARIANZA Y COORRELACION
+La covarianza es una medida de la variabilidad conjunta de dos
+variables.
+➢ Una covarianza positiva significa que las dos variables se
+mueven juntas.
+➢ Una covarianza de 0 significa que las dos variables son
+independientes.
+➢ Una covarianza negativa significa que las dos variables se
+mueven en direcciones opuestas.
+
+La correlación es una medida de la variabilidad conjunta de dos
+variables. A diferencia de la covarianza, la correlación podría
+considerarse una medida estandarizada. Asume valores entre -1
+y 1, por lo que es fácil para nosotros interpretar el resultado.
+➢ Una correlación de 1, conocida como correlación positiva
+perfecta, significa que una variable está perfectamente
+explicada por la otra.
+➢ Una correlación de 0 significa que las variables son
+independientes.
+➢ Una correlación de -1, conocida como una correlación
+perfecta negative, significa que una variable está explicando
+a la otra
+
+para ver sobre intervalos y frecuencias de los intervalos, abrir archivo ejem 1.1 de excel
+
+HISTOGRAMA: es el grafico mas utilizado para representar valores numericos(archivo histograma1.1)
+-utiliza la frecuencia absoluta o relativa y los intervaloz, las barras son continuas
+-se puede trabajar con intervaloz de diferente amplitud como el ejemplo de edad donde menores y mayores no interesan
+
+Si queremos representar relaciones entre 2 avriables usaremos tablas cruzadas y diagramas de dispersion
+Las variables se dividen en categoricas y numericas
+La forma mas comun de representar a las variables categoricas es unsando una tabla cruzada o comunmente llamada de contingencia
+*para mejor entendimiento ver el excel leccion de tablas cruzadas y diagramas de dispersion
+donde tenemos un grafico de barras en paralelo para representar diferentes variables
+Tambien tenemos un DIAGRAMA DE DISPERSION:
+Que es utilizado para representar 2 variables numericas, donde tenemos una observacion atipica
+que es un punto de va en contra de todo el conjunto de datos(sria el punto entre 300 y 550)
+
+DISTANCIA EUCLIDIANA
+distancia entre 2 puntos, en una grafica puede calcularse marcando un triangulo rectangulo o con la formula de la distancia euclidiana que considera y se basa en los puntos cartograficos de las grafica. la formula puede variar dependiendo de si son coordenadas bidimensionales o tridimensionales
+
+CENTROIDE
+Es la posicion media de un grupo de puntos, es decir su centro de masa.
+
+K MEDIAS
+agrupamientos por medio de un numero previo seleccionado, con semilla especifica y asignadas a cada punto basados en la distancia euclidiana. la semilla al final será el centroide basado en los puntos de referencia basados en la distancia euclidiana y los puntos seran reasignados acorde a la nueva semilla y sus nuevas distancias para calcular un nuevo centroide más certero y con un agrupamiento mas especifico

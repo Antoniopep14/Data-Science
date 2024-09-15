@@ -1,0 +1,28 @@
+hay 4 pasos en la toma de desiciones orientada por datos
+    -formular la hipotesis
+    -halla la prueba adecuada
+    -ejecuta la prueba
+    -toma una desicion
+si no hay datos para probar no puede ser una hipotesis
+hay 2 tipos de hipotesis nula y alternativa
+nivel de significacion: es la probabilidad que tenemos de rechazar la hipotesis nula cuando es cierta
+    su valores tipicos son: 0.01, 0.05, 0.1
+
+hay 2 tipos de errores en las hipotesis
+    tipo 1: cuando se rechaza una hipotesis nula verdadera, o falso positivo
+    tipo 2: cuando aceptas una hipotesis nula falsa, o falso negativo
+las hipotesis nulas siempre tendran un nivel de significacion en el cual ya no podran rechazarce
+El valor p es el menor nivel de significacioin en el que todavia podemos rechazar la hipotesis nula
+#se obtiene a traves de la calculadora de valor p 
+
+
+
+
+
+
+
+
+
+
+
+
